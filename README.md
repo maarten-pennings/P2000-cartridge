@@ -163,12 +163,10 @@ But I happen to have investigated that [earlier](https://github.com/maarten-penn
 
 ### Proposal
 
-- I have a slight preference for a single ROM (easy), but a modest multi-rom (4 or 8 ROMs) is also fine.
-- Have a slight preference for the 28C512 because I see myself expanding my programmer. 
-  If we find/have a programmer for SST39SF010, that is also fine.
-- Have a slight preference for the DIL, just because it is familiar. 
-  It is taller than the PLCC solution though.
-- I want to go for with-socket; maybe move to socket to the top.
+- Let's go for a modest multi-rom.
+- If we find/have a programmer for SST39SF010, that one seems best: Ivo uses it and it is cheaper.
+- PLCC is smaller.
+- I want to go for with-socket; maybe move the socket to the top of the PCB.
 - Still need to find the programmer.
 - No reset switch - don't need it.
 
