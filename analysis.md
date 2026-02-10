@@ -1,4 +1,4 @@
-# P2000-cartridge Analysis
+# P2000-cartridge - Analysis
 
 This file documents the analysis I did for [making a cartridge](README.md) for the Philips P2000T.
 

@@ -64,28 +64,7 @@ The render of the PCB.
 
 ## Cost 
 
-First quick cost estimate (we can save by buying fewer pieces, but the shipment kicks in).
-- 28F512 come at [€18](https://nl.aliexpress.com/item/1005009302628487.html) for 10 (with shipping).
-  Not sure about the `F` in the type name yet.
-- 28C256 is more expensive [€49](https://nl.aliexpress.com/item/1005005830753898.html) for 10 (with shipping).
-- The SST39SF010 is a better deal [€13](https://nl.aliexpress.com/item/1005008535405486.html) for 20 pieces (with shipping).
-
-- PLCC sockets seem to be available at [€12](https://nl.aliexpress.com/item/1005006065584831.html) for 50 (with shipping).
-- DIP sockets seem a slightly cheaper [€12](https://nl.aliexpress.com/item/1005007090221911.html) for 60 (with shipping).
-
-- Quad NAND is [€12](https://nl.aliexpress.com/item/1005002328900896.html) for 50 pieces (with shipping).
-- Dip switches is [€10](https://nl.aliexpress.com/item/4001205849246.html) for 50 pieces (with shipping).
-
-- 100 pieces [10k resistors ](https://nl.aliexpress.com/item/32952657927.html)
-- 100 pieces [0.1 uF capacitors](https://nl.aliexpress.com/item/1005010462657465.html)
-
-- PCBs at [JLCPCB](jlcpcb.com) cost €2 euros for 5 pieces (if we stay below 10×10cm²)
-  going up to €12 for 10 pieces (15×7cm²) plus €10 for shipping.
-
-Here a quick shopping cart, now going for 10 pieces, still need to add €25 for PCBs, 
-and we need to solve the EEPROM burner.
-
-![Shopping cart](images/shopping-cart.png)
+Overview of the [cost](cost.md).
 
 
 (end)
