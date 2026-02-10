@@ -19,13 +19,13 @@
     ; name of the cartridge (11 bytes)
     DB 0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00
 
-    ; display Hello World
-    jp printmsg
+    ; start main
+    jp main
 
 message:
     DB "000 Contents",255
 
-printmsg:
+main:
     ld hl,message
     ld bc,0x5000
 print:

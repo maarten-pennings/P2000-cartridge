@@ -21,5 +21,5 @@ jobs:
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
         with:
-          name: hello_world_bin
+          name: 000contents
           path: myroms/000contents.bin
