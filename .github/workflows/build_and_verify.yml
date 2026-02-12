@@ -1,0 +1,43 @@
+name: build_and_verify_000contents
+
+on:
+  push:
+    branches: 
+      - main
+  workflow_dispatch:
+  
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: sudo apt-get update && sudo apt-get install -y z80asm make
+
+      - name: Run Makefile
+        working-directory: ./myroms
+        run: make
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: 000contents
+          path: myroms/000contents.bin
+
+  verify:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4 
+
+      - name: Download bin file
+        uses: actions/download-artifact@v4
+        with:
+          name: 000contents
+          path: ./romcheck
+
+      - name: Run checksum analysis
+        working-directory: ./romcheck
+        run: python3 checksum.py 000contents.bin
