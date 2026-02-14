@@ -33,7 +33,7 @@ Likely cartridge images are:
 
 List of candidate cartridges from [P2000T Preservation Project](https://github.com/p2000t/software/tree/main/cartridges).
 
-My plan is to make one ROM myself "Contents" which just fills the screen with
+I made one ROM myself [Contents](myroms) which just fills the screen with
 
 ![Screenshot Collection](images/collection.png)
 

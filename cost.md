@@ -6,10 +6,14 @@ This file documents the cost made for a Philips P2000T cartridge.
 ## Components
 
 All components were ordered from AliExpress.
+One cartridge needs these.
+Observe that I ordered SST39SF010A memories. These are 1Mbit or 128kB which holds 8 ROMs (of 16kB).
+The PCB can also handle SST39SF020A and SST39SF020A memories (for 16 or even 32) ROMs.
+But these PCBs will have SST39SF010A, therefore I decided to mount 3-throw switches (8 ROMs).
 
 ![Components](images/components.jpg)
 
-We ordered components for 10 cartridges.
+I ordered components for 10 cartridges.
 
   | Description       | Quantity  |     Cost | Link                                                        |
   |:------------------|----------:|---------:|:-----------------------------------------------------------:|
@@ -25,7 +29,7 @@ We ordered components for 10 cartridges.
 
 ## PCB
 
-We ordered 10 PCBs.
+I ordered 10 [PCBs](pcb).
 
 ![Components](images/pcb-render.png)
 

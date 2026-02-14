@@ -9,7 +9,7 @@ A cartridge either occupies 8 kB or 16 kB in the memory map of the P2000 (see ma
 Modern EEPROMs are typically much bigger, for example an 512 kB EEPROM could store 32 cartridge images of each 16 kB.
 The alternative is using a smaller ROM or simply not using the extra memory in the EEPROM.
 
-Technically a multi-rom sounds interesting. Down-sides include: not very retro-like,
+Technically a multi-ROM sounds interesting. Down-sides include: not very retro-like,
 not-so robust dip switches needed, need sticker with e.g. 32 entries, don't switch while powered,
 do we have enough ROMs to make sense in one EEPROM.
 
@@ -71,7 +71,7 @@ the PLCC is 7.8mm and the DIL is 8.4mmm.
 
 ## With or without socket?
 
-With socket allows us to reflash - e.g. when a first flash somehow failed.
+"With" socket allows us to reflash - e.g. when a first flash somehow failed.
 Of course we could have one cartridge with socket ("for development") and solder 
 all the rest (for "use").
 
@@ -83,7 +83,7 @@ the P2000 cartridges do not leave room for sockets:
 ![Cartridge dimensions](images/cartridge-dimensions.drawio.png)
 
 We could put the socketed chip in the top of the cartridge.
-See here some photos of a mockup.
+See here some photos of a mock-up.
 
 ![Mockup PCB ](images/mockup-pcb-1.jpg)
 
