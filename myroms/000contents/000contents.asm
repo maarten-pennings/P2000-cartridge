@@ -10,8 +10,8 @@ header:
     ; signature
     DB 0x5E
 
-    ;  byte count , checksum (all 4 at 0x00 works)
-    DB 0x1F,0x08  , 0xA6,0x9C
+    ;  byte count , checksum (count=0, results in checksum=0)
+    DB 0x00,0x00  , 0x00,0x00
 
     ; name of the cartridge (8 bytes)
     DB "MPEN2026"

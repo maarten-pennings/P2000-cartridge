@@ -15,9 +15,9 @@ print( f"  open  {inname}")
 with open(inname, 'br') as file:
   content=file.read()
 print( f"  size  {len(content)} bytes")
-if len(content)<15 :
-    print("ERROR file to short")
-    sys.exit(21)
+if len(content)<16 :
+  print("ERROR file too short")
+  sys.exit(21)
 head=""
 for i,c in enumerate(content[0:16]) :
   head+=f"{c:02X} "
