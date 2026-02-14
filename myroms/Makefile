@@ -1,7 +1,15 @@
-all: 000contents.bin
+all: res/contents.bin
 
-000contents.bin: 000contents/000contents.asm
-	z80asm   000contents/000contents.asm   -o 000contents.bin
+res/contents.bin: res/contents.sbin
+	python3 pad.py   res/contents.sbin   res/contents.bin
+
+res/contents.sbin: res/contents.subin
+	python3 patch.py   res/contents.subin   res/contents.sbin
+
+res/contents.subin: src/contents.asm
+	z80asm   src/contents.asm   -o res/contents.subin
 
 clean:
-	rm -rf 000contents.bin
+	rm -f res/contents.subin
+	rm -f res/contents.sbin
+	rm -f res/contents.bin

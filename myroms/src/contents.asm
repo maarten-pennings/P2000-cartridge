@@ -1,17 +1,15 @@
-;
-; "000contents.asm"
-;
-
+; "contents.asm"
 ; -----------------------------------------------------------
     org 0x1000
+
 
 ; -----------------------------------------------------------
 header:
     ; signature
     DB 0x5E
 
-    ;  byte count , checksum (count=0, results in checksum=0)
-    DB 0x00,0x00  , 0x00,0x00
+    ;  byte count and checksum (count=0 results in checksum=0)
+    DB 0x00,0x00, 0x00,0x00
 
     ; name of the cartridge (8 bytes)
     DB "MPEN2026"
@@ -22,9 +20,10 @@ header:
     ; Reserved
     DB 0x00,0x00
 
+
 ; -----------------------------------------------------------
 main:
-    ; copy rom image of two screens to frame buffer
+    ; copy rom image (two screens) to frame buffer
     LD BC,2*40*25
     LD HL,screens  ; rom image
     LD DE,0x5000   ; frame buffer
@@ -45,6 +44,8 @@ loop:
 
   
 ; -----------------------------------------------------------
+; Wait a bit 
+; Destroys: B, C
 delay:
     LD B,80
 delay1:
@@ -58,6 +59,8 @@ delay2:
     
 
 ; -----------------------------------------------------------
+; Spins until a key is pressed, then returns
+; Destroys: A, B, C
 waitforkey:
     CALL checkkbd
     JP Z,waitforkey
@@ -88,6 +91,7 @@ kbdret:
 
     
 ; -----------------------------------------------------------
+; data for 2 screens of 25 rows of 40 columns
 screens:
     ;  0 000 ABK alpha-black
     ;  1 001 ANR alpha-red
