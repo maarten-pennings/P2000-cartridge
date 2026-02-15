@@ -1,4 +1,7 @@
 // drv.cpp - driver for the 39SF010, 39SF020, and 39SF040 flash chips
+// Inspiration: https://github.com/slu4coder/SST39SF010-FLASH-Programmer
+
+
 #include <Arduino.h>
 #include <stdint.h>
 #include "drv.h"
