@@ -2,12 +2,12 @@
 #include <Arduino.h>  // Serial
 #include "cmd.h"      // v8.2.1 https://github.com/maarten-pennings/cmd
 #include "afp.h"      // AFP_NAME etc
-#include "cmdinfo.h"
-
+#include "cmdinfo.h"  // self
 
 
 // Get the VCC the Arduino Nano itself runs on (using built-in ref)
 // Since is also powers the EEPROM, this should not be too low
+
 
 static uint32_t cmdinfo_mega328_readVcc(void) { 
   // From: https://code.google.com/archive/p/tinkerit/wikis/SecretVoltmeter.wiki
@@ -36,13 +36,13 @@ static uint32_t cmdinfo_mega328_Vcc(void) {
 static void cmdinfo_main(int argc, char * argv[] ) {
   (void)argc; // unused
   (void)argv; // unused
-  Serial.println(F("info: name   : " AFP_LONGNAME));
-  Serial.println(F("info: version: " AFP_VERSION));
-  Serial.println(F("info: author : " AFP_AUTHOR));
-  Serial.println(F("info: date   : " AFP_DATE));
-  Serial.print  (F("info: voltage: ")); Serial.print( cmdinfo_mega328_Vcc() ); Serial.println(F("mV"));
-  Serial.print  (F("info: cpufreq: ")); Serial.print( F_CPU ); Serial.println(F("Hz"));
-  Serial.print  (F("info: uartbuf: ")); Serial.print( SERIAL_RX_BUFFER_SIZE ); Serial.println(F(" bytes"));
+  Serial.print(F("name   : ")); Serial.println(F(AFP_LONGNAME));
+  Serial.print(F("version: ")); Serial.println(F(AFP_VERSION));
+  Serial.print(F("author : ")); Serial.println(F(AFP_AUTHOR));
+  Serial.print(F("date   : ")); Serial.println(F(AFP_DATE));
+  Serial.print(F("voltage: ")); Serial.print( cmdinfo_mega328_Vcc() ); Serial.println(F(" mV"));
+  Serial.print(F("cpufreq: ")); Serial.print( F_CPU ); Serial.println(F(" Hz"));
+  Serial.print(F("uartbuf: ")); Serial.print( SERIAL_RX_BUFFER_SIZE ); Serial.println(F(" bytes"));
 }
 
 

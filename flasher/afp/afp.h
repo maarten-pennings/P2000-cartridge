@@ -4,16 +4,18 @@
 
 
 // Application version (and its history)
-#define AFP_VERSION "0.1"
-// 20260215  1.0  Created
+#define AFP_VERSION "0.3" // see also AFP_DATE
+// 20260216  0.3  Added read command
+// 20260216  0.2  Added flash command
+// 20260215  0.1  Created (help, echo, info command)
 
 
 // Application date
-#define AFP_DATE    "2026 feb 15"
+#define AFP_DATE    "2026 feb 16"
 
 
 // Application long name
-#define  AFP_LONGNAME "Android Flash Programmer"
+#define  AFP_LONGNAME "Arduino Flash Programmer"
 
 
 // Application author

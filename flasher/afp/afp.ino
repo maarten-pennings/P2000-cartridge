@@ -1,63 +1,35 @@
 // afp.ino - Arduino Flash Programmer (for the 39SF010, 39SF020, and 39SF040)
 #include "cmd.h"     // v8.2.1 https://github.com/maarten-pennings/cmd
 #include "cmdinfo.h"
+#include "cmdflash.h"
+#include "cmdread.h"
 #include "drv.h"
 #include "afp.h"
 
 
-void printid() {
-  uint8_t manid,devid;
-  drv_id(&manid,&devid);
-
-  // Print the two IDs
-  Serial.print("manid ");
-  Serial.print(manid,HEX);
-  if( manid==DRV_MANID_MICROCHIP ) Serial.print(" Microchip");
-  Serial.println();
-  Serial.print("devid ");
-  Serial.print(devid,HEX);
-  if( devid==DRV_DEVID_39SF010 ) Serial.print(" 39SF010");
-  if( devid==DRV_DEVID_39SF020 ) Serial.print(" 39SF020");
-  if( devid==DRV_DEVID_39SF040 ) Serial.print(" 39SF040");
-  Serial.println();
-}
-
-
-void printrow(uint32_t addr) {
-  // Read
-  uint8_t io[16];
-  drv_io_read(addr, io, sizeof io);
-  // Print
-  if( addr<0x10 ) Serial.print("0");
-  if( addr<0x100 ) Serial.print("0");
-  if( addr<0x1000 ) Serial.print("0");
-  Serial.print(addr,HEX);
-  Serial.print(":");
-  for( uint8_t i=0; i<sizeof io; i++ ) {
-    if( io[i]<10 ) Serial.print("0");
-    Serial.print(io[i],HEX);
-    Serial.print(" ");
-  }
-  Serial.println();
+static void cmds_register() {
+  cmdecho_register();
+  cmdhelp_register();
+  cmdinfo_register();
+  cmdflash_register();
+  cmdread_register();
+  Serial.println( F("cmds : init") );
 }
 
 
 void setup() {
   Serial.begin(115200, SERIAL_8N1);
-  Serial.println( F(AFP_BANNER) );
+  Serial.print( F(AFP_BANNER) );
   Serial.print( F(AFP_LONGNAME) ); Serial.print( F(" - version ") ); Serial.println( F(AFP_VERSION) );
+  Serial.println( );
 
   drv_init();
   cmd_init();
-
-  cmdecho_register();
-  cmdhelp_register();
-  cmdinfo_register();
+  cmds_register();
   Serial.println( );
 
   Serial.println( F("Type 'help' for help") );
   cmd_prompt();
-
 }
 
 
@@ -66,10 +38,6 @@ void loop() {
 }
 
 
-// - as address also allow Snn where nn is hex sector number
-// - have opt commmand to set the number of clusters in a group (default 4 matches our ROM size)
-// - as address also allow Gnn where nn is hex rom number
-// - have a type command to set type, allow autodetect
 // - have an info  command to print a table like below, maybe with EMPTY when all bytes are 0xFF
 
   // printid();
@@ -113,15 +81,6 @@ Available commands
  erase - erases EEPROM memory
  options - select options for the programmer
 
-
->> info
-info: name   : Arduino EEPROM Programmer
-info: author : Maarten Pennings
-info: version: 12
-info: date   : 2020 may 23
-info: voltage: 4674mV
-info: cpufreq: 16000000Hz
-info: uartbuf: 64 bytes
 
 
 >> help read
@@ -169,6 +128,7 @@ SYNTAX: program <addr> <data>...
 - performs write followed by verify
 - see help for those commands for details
 >> help erase
+
 SYNTAX: erase [ <addr> [ <num> [ <data> [ <step> ] ] ] ]
 - erase <num> bytes in EEPROM, starting at location <addr>, by writing <data>
 - <data> it is stepped by one every <step> addresses.
@@ -182,10 +142,9 @@ NOTE:
 - <addr>, <num>, <data>, and <step> are in hex
 
 
->> help options
-SYNTAX: options ( type <val> | chip <val> )*
-- without arguments, shows configured options
-- type 28c16 | 28c64: configures programmer for EEPROM type
-- chip enable | disable: configures chip-enable line of EEPROM
->> 
 */
+
+
+
+// todo: commit cmd library
+

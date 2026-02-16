@@ -43,6 +43,7 @@ void drv_init() {
   PORTC = 0b00000000; 
   DDRC  = 0b00111000;  // address lines output
 
+  Serial.println( F("drv  : init") );
   // flash and shift invariant
 }
 
