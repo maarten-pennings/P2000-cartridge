@@ -3,15 +3,17 @@
 #include "cmdinfo.h"
 #include "cmdflash.h"
 #include "cmdread.h"
+#include "cmderase.h"
 #include "drv.h"
 #include "afp.h"
 
 
 static void cmds_register() {
   cmdecho_register();
+  cmderase_register();
+  cmdflash_register();
   cmdhelp_register();
   cmdinfo_register();
-  cmdflash_register();
   cmdread_register();
   Serial.println( F("cmds : init") );
 }

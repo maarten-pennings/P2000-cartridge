@@ -4,10 +4,11 @@
 
 
 // Application version (and its history)
-#define AFP_VERSION "0.4" // see also AFP_DATE
-// 20260216  0.4  Improved 'flash' (now has rom io group)
-// 20260216  0.3  Added read command
-// 20260216  0.2  Added flash command
+#define AFP_VERSION "0.5" // see also AFP_DATE
+// 20260217  0.5  Added 'erase' command
+// 20260217  0.4  Improved 'flash' (now has rom io group)
+// 20260216  0.3  Added 'read' command
+// 20260216  0.2  Added 'flash' command
 // 20260215  0.1  Created (help, echo, info command)
 
 
