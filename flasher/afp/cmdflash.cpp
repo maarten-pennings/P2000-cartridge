@@ -5,53 +5,52 @@
 #include "cmdflash.h" // self
 
 
-static       uint16_t cmdflash_chipsize   = 128; // in k bytes
-static       uint16_t cmdflash_groupsize  = 4;   // in sectors
-static const uint16_t cmdflash_sectorsize = 4;   // in k bytes 
+static       uint16_t cmdflash_chipsize_k   = 128; // can also be 256 or 512
+static       uint16_t cmdflash_romsize_k    =  16; // may be changed by user
+static const uint16_t cmdflash_sectorsize_k =   4; // fixed
 
 
-uint16_t cmdflash_chipsize_k() {
-  return cmdflash_chipsize;
+uint32_t cmdflash_chipsize() {
+  return cmdflash_chipsize_k * 1024L;
 }
 
 
-uint16_t cmdflash_groupsize_sectors() {
-  return cmdflash_groupsize;
+uint32_t cmdflash_romsize() {
+  return cmdflash_romsize_k * 1024L;
 }
 
 
-uint16_t cmdflash_sectorsize_k() {
-  return cmdflash_sectorsize;
+uint32_t cmdflash_sectorsize() {
+  return cmdflash_sectorsize_k * 1024L;
 }
 
 
-static void cmdflash_chipshow() {
-  Serial.print( F("chip  size: ") );
-  Serial.print( cmdflash_chipsize );
+static void cmdflash_show_chip() {
+  Serial.print( F("chip size: ") );
+  Serial.print( cmdflash_chipsize_k );
   Serial.print( F(" k bytes (") );
-  Serial.print( cmdflash_chipsize/cmdflash_sectorsize );
+  Serial.print( cmdflash_chipsize_k/cmdflash_sectorsize_k );
   Serial.print( F(" sectors) (") );
-  Serial.print( cmdflash_chipsize/cmdflash_sectorsize/cmdflash_groupsize );
-  Serial.println( F(" groups)") );
+  Serial.print( cmdflash_chipsize_k/cmdflash_romsize_k );
+  Serial.println( F(" roms)") );
 }
 
 
-static void cmdflash_groupshow() {
-  Serial.print( F("group size: ") );
-  Serial.print( cmdflash_groupsize );
-  Serial.print( F(" sectors (") );
-  Serial.print( cmdflash_sectorsize*cmdflash_groupsize );
-  Serial.println( F(" k bytes)") );
+static void cmdflash_show_rom() {
+  Serial.print( F("rom  size: ") );
+  Serial.print( cmdflash_romsize_k );
+  Serial.print( F(" k bytes (") );
+  Serial.print(  cmdflash_romsize_k/cmdflash_sectorsize_k);
+  Serial.println( F(" sectors)") );
 }
 
 
-void cmdflash_patch_and_print() {
-  if( cmdflash_sectorsize * cmdflash_groupsize > cmdflash_chipsize ) {
-    Serial.println( F("WARNING group size reduced") );
-    cmdflash_groupsize = cmdflash_chipsize / cmdflash_sectorsize;
+static void cmdflash_rom_patch() {
+  if( cmdflash_romsize_k > cmdflash_chipsize_k ) {
+    Serial.println( F("WARNING rom size reduced") );
+    cmdflash_romsize_k = cmdflash_chipsize_k;
+    cmdflash_show_rom();
   }
-  cmdflash_chipshow();
-  cmdflash_groupshow();
 }
 
 
@@ -66,9 +65,9 @@ void cmdflash_auto() {
   Serial.println();
   Serial.print( F("devid ") );
   Serial.print(devid,HEX);
-  if( devid==DRV_DEVID_39SF010 ) { Serial.print( F(": 39SF010 (1 Mbit = 128 kbyte)") ); cmdflash_chipsize=128; }
-  if( devid==DRV_DEVID_39SF020 ) { Serial.print( F(": 39SF020 (2 Mbit = 256 kbyte)") ); cmdflash_chipsize=256; }
-  if( devid==DRV_DEVID_39SF040 ) { Serial.print( F(": 39SF040 (4 Mbit = 512 kbyte)") ); cmdflash_chipsize=512; }
+  if( devid==DRV_DEVID_39SF010 ) { Serial.print( F(": 39SF010 (1 Mbit = 128 kbyte)") ); cmdflash_chipsize_k=128; }
+  if( devid==DRV_DEVID_39SF020 ) { Serial.print( F(": 39SF020 (2 Mbit = 256 kbyte)") ); cmdflash_chipsize_k=256; }
+  if( devid==DRV_DEVID_39SF040 ) { Serial.print( F(": 39SF040 (4 Mbit = 512 kbyte)") ); cmdflash_chipsize_k=512; }
   Serial.println();
 }
 
@@ -76,57 +75,76 @@ void cmdflash_auto() {
 // The handler for the "flash" command
 static void cmdflash_main(int argc, char * argv[] ) {
   if( argc==1 ) {
-    cmdflash_chipshow();
-    cmdflash_groupshow();
+    cmdflash_show_chip();
+    cmdflash_show_rom();
   } else if( cmd_isprefix(PSTR("chip"),argv[1]) ) { 
     if( argc==2 ) {
-      cmdflash_chipshow();
-    } else if( cmd_isprefix(PSTR("auto"),argv[2]) ) { 
-      cmdflash_auto();
-      cmdflash_patch_and_print();
-    } else if( cmd_isprefix(PSTR("128"),argv[2]) ) { 
-      cmdflash_chipsize=128; 
-      cmdflash_patch_and_print();
-    } else if( cmd_isprefix(PSTR("256"),argv[2]) ) { 
-      cmdflash_chipsize=256; 
-      cmdflash_patch_and_print();
-    } else if( cmd_isprefix(PSTR("512"),argv[2]) ) { 
-      cmdflash_chipsize=512; 
-      cmdflash_patch_and_print();
+      cmdflash_show_chip();
+    } else if( argc>3 ) {
+      Serial.println( F("'flash chip' has too many args") );
+      return;
     } else {
-      Serial.println( F("'flash chip' has unknown size") );
+      if( cmd_isprefix(PSTR("auto"),argv[2]) ) { 
+        cmdflash_auto();
+      } else if( cmd_isprefix(PSTR("128"),argv[2]) ) { 
+        cmdflash_chipsize_k=128; 
+      } else if( cmd_isprefix(PSTR("256"),argv[2]) ) { 
+        cmdflash_chipsize_k=256; 
+      } else if( cmd_isprefix(PSTR("512"),argv[2]) ) { 
+        cmdflash_chipsize_k=512; 
+      } else {
+        Serial.println( F("'flash chip' has unknown size (128, 256, 512)") );
+        return;
+      }
+      cmdflash_rom_patch();
+      if( argv[0][0]!='@' ) cmdflash_show_chip();
     }
-  } else if( cmd_isprefix(PSTR("group"),argv[1]) ) { 
+  } else if( cmd_isprefix(PSTR("rom"),argv[1]) ) { 
     if( argc==2 ) {
-      cmdflash_groupshow();
+      cmdflash_show_rom();
+    } else if( argc>3 ) {
+      Serial.println( F("'flash rom' has too many args") );
+      return;
     } else {
       int size;
       bool ok= cmd_parse_dec(argv[2],&size) ;
-      if( ok && size>0 ) {
-        cmdflash_groupsize= size; 
-        cmdflash_patch_and_print();
-      } else {
-        Serial.println( F("'flash group' has unknown/illegal size") );
+      if( !ok || size==0 ) {
+        Serial.println( F("'flash rom' has illegal size") );
+        return;
       }
+      if( size%cmdflash_sectorsize_k!=0 ) {
+        Serial.print( F("rom size must be multiple of sector size (") );
+        Serial.print(cmdflash_sectorsize_k);
+        Serial.println( F(" k bytes)") );
+        return;
+      }
+      if( cmdflash_chipsize_k%size!=0 ) {
+        Serial.print( F("rom size must be divider of flash size (") );
+        Serial.print(cmdflash_chipsize_k);
+        Serial.println( F(" k bytes)") );
+        return;
+      }
+      cmdflash_romsize_k= size; 
+      if( argv[0][0]!='@' ) cmdflash_show_rom();
     }
   } else {
-    Serial.println( F("'flash' needs subcommand 'chip' or 'group'") );
+    Serial.println( F("'flash' needs subcommand 'chip' or 'rom'") );
   }
 }
 
 
 static const char cmdflash_longhelp[] PROGMEM = 
   "SYNTAX: flash\n"
-  "- shows chip size and group size\n"
+  "- shows chip size and rom size\n"
   "SYNTAX: flash chip [ auto | 128 | 256 | 512 ]\n"
   "- without arguments shows configured chip size (default 128)\n"
   "- with arguments sets chip size (in k bytes)\n"
   "- with argument 'auto' queries flash chip for size\n"
-  "SYNTAX: flash group [ <size> ]\n"
-  "- without arguments shows configured group size (default 4)\n"
-  "- with argument sets group size (in number of 4 k sectors)\n"
-  "- group size is for convenience in 'read', 'write' commands\n"
-  "- group size is intended to match ROM size in multi-ROM\n"
+  "SYNTAX: flash rom [ <size> ]\n"
+  "- without arguments shows configured rom size (default 4)\n"
+  "- with argument sets rom size (in k bytes)\n"
+  "- rom size is for convenience in 'read', 'write' commands\n"
+  "- rom size is intended to match ROM size in multi-ROM\n"
 ;
 
 

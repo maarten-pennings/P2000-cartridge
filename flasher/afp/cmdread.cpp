@@ -12,21 +12,33 @@ static uint32_t cmdread_addr= 0x00000;
 #define BYTES_PER_LINE 16
 static void cmdread_show(uint32_t num) {
   // clip current address to flash size
-  uint32_t flash_size= cmdflash_chipsize_k()*1024L;
-  if( cmdread_addr >= flash_size ) cmdread_addr= 0; 
+  if( cmdread_addr >= cmdflash_chipsize() ) {
+    Serial.println(F("ERROR: at end of flash"));
+    return;
+  }
   // clip num bytes to flash size
-  if( cmdread_addr+num >= flash_size ) num= flash_size - cmdread_addr;
+  if( cmdread_addr+num >= cmdflash_chipsize() ) num= cmdflash_chipsize() - cmdread_addr;
   
+  bool next=0;
   while( num>0 ) {
-    uint32_t sector_addr= cmdread_addr / (1024*cmdflash_sectorsize_k());
-    char sector_star= cmdread_addr % (1024*cmdflash_sectorsize_k()) ? ' ' : '*';
-    uint32_t group_addr = sector_addr  / cmdflash_groupsize_sectors();
-    char group_star= ' ';
-    if( sector_star=='*' ) group_star= sector_addr  % cmdflash_groupsize_sectors() ? ' ' : '*';
-    cmd_printf( "G%02lx%cS%02lx%c%05lx:", group_addr, group_star, sector_addr, sector_star, cmdread_addr );
+    uint32_t sector_addr= cmdread_addr / cmdflash_sectorsize();
+    uint32_t rom_addr = sector_addr  / cmdflash_romsize();
 
+    // print divider
+    char sep=0;
+    if( cmdread_addr % 0x100 == 0 ) sep=' ';
+    if( cmdread_addr % cmdflash_sectorsize() == 0 ) sep='-';
+    if( cmdread_addr % cmdflash_romsize() == 0 ) sep='=';
+    if( next && sep ) { for(byte i=0; i<63; i++) Serial.print(sep); Serial.println(); }
+    next= 1;
+
+
+    // print address(es)
+    cmd_printf( "R%02lx S%02lx %05lx:", rom_addr, sector_addr, cmdread_addr );
+
+    // print data
     uint8_t size= BYTES_PER_LINE;
-    uint8_t skip= 8;
+    uint8_t skip= BYTES_PER_LINE/2;
     if( cmdread_addr % BYTES_PER_LINE != 0 ) {
       // start addr is not 00 of page
       size -= (cmdread_addr % BYTES_PER_LINE);
@@ -63,15 +75,15 @@ static void cmdread_main(int argc, char * argv[] ) {
   
   char *s= argv[1];
   uint32_t factor=1;
-  if( *s=='S' || *s=='s' ) { s++; factor= cmdflash_sectorsize_k()*1024L; }
-  else if( *s=='G' || *s=='g' ) {s++; factor= cmdflash_groupsize_sectors()*cmdflash_sectorsize_k()*1024L; }
+  if(      *s=='S' || *s=='s' ) { s++; factor= cmdflash_sectorsize(); }
+  else if( *s=='R' || *s=='r' ) { s++; factor= cmdflash_romsize(); }
   uint32_t addr;
   if( ! cmd_parse_hex32(s,&addr) ) {
     Serial.println( F("'read' has error in <addr>") );
     return;
   }
   addr *= factor;
-  if( addr >= cmdflash_chipsize_k()*1024L ) {
+  if( addr >= cmdflash_chipsize() ) {
     Serial.println( F("'read' has <addr> greater than chip size") );
     return;
   }
@@ -97,13 +109,13 @@ static const char cmdread_longhelp[] PROGMEM =
   "- when <num> is absent, reads 256 bytes\n"
   "- when <addr> has form <hex> the address is <hex>\n"
   "- when <addr> has form s<hex> (sector) the address is <hex>*0x1000\n"
-  "- when <addr> has form g<hex> (group) the address is <hex>*<group>*0x1000\n"
+  "- when <addr> has form r<hex> (rom) the address is <hex>*<group>*0x1000\n"
   "- when addr is absent continues from previous read\n"
   "NOTE:\n"
   "- <addr>, <num>, and <hex> are in hex\n"
   "- a sector (16 pages, 4096 bytes) is the unit of erase of the flash chip\n"
-  "- a group consists of <group> sectors, the unit of use (eg ROM cartridge)\n"
-  "- <group> is set with the 'flash' command\n"
+  "- a rom consists of <rom> sectors, the unit of use (eg ROM cartridge)\n"
+  "- <rom> is set with the 'flash' command\n"
 ;
 
 

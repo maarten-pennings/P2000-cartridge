@@ -4,14 +4,15 @@
 
 
 // Application version (and its history)
-#define AFP_VERSION "0.3" // see also AFP_DATE
+#define AFP_VERSION "0.4" // see also AFP_DATE
+// 20260216  0.4  Improved 'flash' (now has rom io group)
 // 20260216  0.3  Added read command
 // 20260216  0.2  Added flash command
 // 20260215  0.1  Created (help, echo, info command)
 
 
 // Application date
-#define AFP_DATE    "2026 feb 16"
+#define AFP_DATE    "2026 feb 17"
 
 
 // Application long name

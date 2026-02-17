@@ -3,9 +3,9 @@
 #define _CMDFLASH_H_
 
 
-uint16_t cmdflash_chipsize_k();
-uint16_t cmdflash_groupsize_sectors();
-uint16_t cmdflash_sectorsize_k();
+uint32_t cmdflash_chipsize();
+uint32_t cmdflash_romsize();
+uint32_t cmdflash_sectorsize();
 
 
 int cmdflash_register(void);
