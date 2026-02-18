@@ -47,9 +47,9 @@ void cmdwrite_main(int argc, char * argv[] ) {
 
   if( cmd_isprefix(PSTR("stats"),argv[1]) ) {
     if( argc==2 )  {
-      cmd_printf("bytes written %d (dec)\r\n",cmdwrite_stats_writecount);
-      cmd_printf("write errors  %d (dec)\r\n",cmdwrite_stats_errorcount);
-      cmd_printf("elapsed time  %d (ms)\r\n",millis()-cmdwrite_stats_timems);
+      cmd_printf("bytes written %lu\r\n",cmdwrite_stats_writecount);
+      cmd_printf("write errors  %lu\r\n",cmdwrite_stats_errorcount);
+      cmd_printf("elapsed time  %lu ms\r\n",millis()-cmdwrite_stats_timems);
       return;
     }
     if( argc>3 ) { Serial.println(F("ERROR: too many args")); return; }

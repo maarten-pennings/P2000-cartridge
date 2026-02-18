@@ -4,7 +4,8 @@
 
 
 // Application version (and its history)
-#define AFP_VERSION "0.7" // see also AFP_DATE
+#define AFP_VERSION "0.8" // see also AFP_DATE
+// 20260218  0.8  Fixed bug in elapsed time
 // 20260218  0.7  Added 'write' command, unified ERROR msgs, added more @-support
 // 20260218  0.6  Erase map improved, added LED to drv for mofifications
 // 20260217  0.5  Added 'erase' command
