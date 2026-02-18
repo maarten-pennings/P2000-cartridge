@@ -4,7 +4,8 @@
 
 
 // Application version (and its history)
-#define AFP_VERSION "0.5" // see also AFP_DATE
+#define AFP_VERSION "0.6" // see also AFP_DATE
+// 20260218  0.6  Erase map improved, added LED to drv for mofifications
 // 20260217  0.5  Added 'erase' command
 // 20260217  0.4  Improved 'flash' (now has rom io group)
 // 20260216  0.3  Added 'read' command
@@ -13,7 +14,7 @@
 
 
 // Application date
-#define AFP_DATE    "2026 feb 17"
+#define AFP_DATE    "2026 feb 18"
 
 
 // Application long name

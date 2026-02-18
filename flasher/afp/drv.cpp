@@ -48,17 +48,13 @@ void drv_init() {
 }
 
 
-void drv_led_set(uint8_t state) {
-  bitWrite(PORTB, 5, !state);
-}
-
-
 // Shortcuts for the control lines (in port B)
 #define SET_OEN(state)    bitWrite(PORTB, 0, state)   // output enable pin flash chip (high for write, low for read)
 #define SET_WEN(state)    bitWrite(PORTB, 1, state)   // write  enable pin flash chip (low for write, high for read)
 #define SET_DAT(state)    bitWrite(PORTB, 2, state)   // Data  line of 74HC595 shift register: DAT (aka SER) 
 #define SET_CLK(state)    bitWrite(PORTB, 3, state)   // Clock line of 74HC595 shift register: CLK (aka SRCLK or SH_CLK) 
 #define SET_LAT(state)    bitWrite(PORTB, 4, state)   // Latch line of 74HC595 shift register: LAT (aka RCLK or ST_CLK)
+#define SET_LED(state)    bitWrite(PORTB, 5, state)  // Control the LED integrated on the Nano board
 
 
 // Post condition of these macros is flash and shift invariant (assuming pre condition is also both)
@@ -142,6 +138,7 @@ void drv_io_read(uint32_t addr, uint8_t * io, uint8_t size) {
 // Writing `mem[addr]=io` actually means "and with `mem[addr]&=io`, so only 0 bits are created.
 // Before writing typically erase the sector of entire chip.
 bool drv_io_write(uint32_t addr, uint8_t io) {
+  SET_LED(HIGH);
   // Write the byte-program sequence
   drv_io_cfgwrite();
   drv_addr_set(0x5555); drv_io_set(0xaa); PULSE_WEN();
@@ -155,6 +152,7 @@ bool drv_io_write(uint32_t addr, uint8_t io) {
     uint8_t time=0; while( (MSB(drv_io_get())!=MSB(io)) && (time<100) ){ time++; delayMicroseconds(1); } // time ~20us
   SET_OEN(HIGH);
   //Serial.print("byte write "); Serial.print(time); Serial.println("us");
+  SET_LED(LOW);
   return time<50;
   // flash and shift invariant (WEN pulsed, OEN restored)
 }
@@ -164,6 +162,7 @@ bool drv_io_write(uint32_t addr, uint8_t io) {
 // Returns true iff erase completes in time (~200us).
 // `addr` is a random address in the (4k) sector, typically use the base address (ie sectornum*0x1000)
 bool drv_erase_sector(uint32_t addr) {
+  SET_LED(HIGH);
   // Write the chip-erase sequence
   drv_io_cfgwrite();
   drv_addr_set(0x5555); drv_io_set(0xaa); PULSE_WEN(); 
@@ -178,6 +177,7 @@ bool drv_erase_sector(uint32_t addr) {
     uint16_t time=0; while( (MSB(drv_io_get())!=128) && (time<2000) ) { time++; delayMicroseconds(100); } // time ~200us
   SET_OEN(HIGH);
   //Serial.print("sector erase "); Serial.print(time); Serial.println("00us");
+  SET_LED(LOW);
   return time<1000;
   // flash and shift invariant (WEN pulsed, OEN restored)
 }
@@ -186,6 +186,7 @@ bool drv_erase_sector(uint32_t addr) {
 // This functions erases the entire flash.  Erase means fill with 0xFF.
 // Returns true iff erase completes in time (~700us).
 bool drv_erase_chip() {
+  SET_LED(HIGH);
   // Write the chip-erase sequence
   drv_io_cfgwrite();
   drv_addr_set(0x5555); drv_io_set(0xaa); PULSE_WEN(); 
@@ -200,6 +201,7 @@ bool drv_erase_chip() {
     uint16_t time=0; while( (MSB(drv_io_get())!=128) && (time<2000) ) { time++; delayMicroseconds(100); } // time ~700us
   SET_OEN(HIGH);
   //Serial.print("chip erase "); Serial.print(time); Serial.println("00us");
+  SET_LED(LOW);
   return time<2000;
   // flash and shift invariant (WEN pulsed, OEN restored)
 }
@@ -231,40 +233,4 @@ void drv_id(uint8_t * manid, uint8_t * devid) {
   drv_addr_set(0x2aaa); drv_io_set(0x55); PULSE_WEN();
   drv_addr_set(0x5555); drv_io_set(0xF0); PULSE_WEN();
 }
-
-
-// grp  sectors  addresses    flash chip types
-//  00  000-003  00000-03FFF  39SF010
-//  01  004-007  04000-07FFF  39SF010
-//  02  008-011  08000-0BFFF  39SF010
-//  03  012-015  0C000-0FFFF  39SF010
-//  04  016-019  10000-13FFF  39SF010
-//  05  020-023  14000-17FFF  39SF010
-//  06  024-027  18000-1BFFF  39SF010
-//  07  028-031  1C000-1FFFF  39SF010
-//  08  032-035  20000-23FFF  39SF010,39SF020
-//  09  036-039  24000-27FFF  39SF010,39SF020
-//  10  040-043  28000-2BFFF  39SF010,39SF020
-//  11  044-047  2C000-2FFFF  39SF010,39SF020
-//  12  048-051  30000-33FFF  39SF010,39SF020
-//  13  052-055  34000-37FFF  39SF010,39SF020
-//  14  056-059  38000-3BFFF  39SF010,39SF020
-//  15  060-063  3C000-3FFFF  39SF010,39SF020
-//  16  064-067  40000-43FFF  39SF010,39SF020,39SF040
-//  17  068-071  44000-47FFF  39SF010,39SF020,39SF040
-//  18  072-075  48000-4BFFF  39SF010,39SF020,39SF040
-//  19  076-079  4C000-4FFFF  39SF010,39SF020,39SF040
-//  20  080-083  50000-53FFF  39SF010,39SF020,39SF040
-//  21  084-087  54000-57FFF  39SF010,39SF020,39SF040
-//  22  088-091  58000-5BFFF  39SF010,39SF020,39SF040
-//  23  092-095  5C000-5FFFF  39SF010,39SF020,39SF040
-//  24  096-099  60000-63FFF  39SF010,39SF020,39SF040
-//  25  100-103  64000-67FFF  39SF010,39SF020,39SF040
-//  26  104-107  68000-6BFFF  39SF010,39SF020,39SF040
-//  27  108-111  6C000-6FFFF  39SF010,39SF020,39SF040
-//  28  112-115  70000-73FFF  39SF010,39SF020,39SF040
-//  29  116-119  74000-77FFF  39SF010,39SF020,39SF040
-//  30  120-123  78000-7BFFF  39SF010,39SF020,39SF040
-//  31  124-127  7C000-7FFFF  39SF010,39SF020,39SF040
-
 

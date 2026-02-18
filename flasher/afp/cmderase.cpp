@@ -28,15 +28,19 @@ static bool cmderase_isempty(uint8_t sector) {
 
 static void cmderase_show() {
   uint8_t rom2 = cmdflash_chipsize()/cmdflash_romsize();
+  uint8_t empty=0;
+  uint8_t inuse=0;
+  Serial.println( F("rom sectors addresses    state-of-sectors:empty/inuse") );
   for( uint8_t rom1=0; rom1<rom2; rom1++ ) {
     uint8_t sector1=rom1*cmdflash_romsize()/cmdflash_sectorsize();
     uint8_t sector2=(rom1+1)*cmdflash_romsize()/cmdflash_sectorsize();
-    cmd_printf( "R%02x S%02x-S%02x:", rom1, sector1, sector2-1 );
+    cmd_printf( "R%02x S%02x-S%02x %05lx-%05lx:", rom1, sector1, sector2-1,sector1*cmdflash_sectorsize(),sector2*cmdflash_sectorsize()-1 );
     for( uint8_t sector=sector1; sector<sector2; sector++ ) {
-      if( cmderase_isempty(sector) ) Serial.print(F("    -  ")); else Serial.print(F("  inuse"));
+      if( cmderase_isempty(sector) ) { empty++; Serial.print(F("    -  ")); } else { inuse++; Serial.print(F("  inuse")); }
     }
     Serial.println();
   }
+  Serial.print(F("clusters: empty ")); Serial.print(empty); Serial.print(F(" inuse ")); Serial.println(inuse);
 }
 
 

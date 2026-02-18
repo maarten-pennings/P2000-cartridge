@@ -19,8 +19,6 @@ bool drv_io_write(uint32_t addr, uint8_t io);
 bool drv_erase_sector(uint32_t addr);
 bool drv_erase_chip();
 
-void drv_led_set(uint8_t state);
-
 
 #endif
 
