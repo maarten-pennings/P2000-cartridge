@@ -77,21 +77,21 @@ static void cmdflash_main(int argc, char * argv[] ) {
   if( argc==1 ) {
     cmdflash_show_chip(argv[0][0]!='@');
     cmdflash_show_rom(argv[0][0]!='@');
-  } else if( cmd_isprefix(PSTR("chip"),argv[1]) ) { 
+  } else if( cmd_isprefix(PSTR("chip"),argv[1]) ) {
     if( argc==2 ) {
       cmdflash_show_chip(argv[0][0]!='@');
     } else if( argc>3 ) {
       Serial.println( F("ERROR: too many args") );
       return;
     } else {
-      if( cmd_isprefix(PSTR("auto"),argv[2]) ) { 
+      if( cmd_isprefix(PSTR("auto"),argv[2]) ) {
         cmdflash_auto( argv[0][0]!='@' );
-      } else if( cmd_isprefix(PSTR("128"),argv[2]) ) { 
-        cmdflash_chipsize_k=128; 
-      } else if( cmd_isprefix(PSTR("256"),argv[2]) ) { 
-        cmdflash_chipsize_k=256; 
-      } else if( cmd_isprefix(PSTR("512"),argv[2]) ) { 
-        cmdflash_chipsize_k=512; 
+      } else if( cmd_isprefix(PSTR("128"),argv[2]) ) {
+        cmdflash_chipsize_k=128;
+      } else if( cmd_isprefix(PSTR("256"),argv[2]) ) {
+        cmdflash_chipsize_k=256;
+      } else if( cmd_isprefix(PSTR("512"),argv[2]) ) {
+        cmdflash_chipsize_k=512;
       } else {
         Serial.println( F("ERROR: unknown size (128, 256, 512)") );
         return;
@@ -99,7 +99,7 @@ static void cmdflash_main(int argc, char * argv[] ) {
       cmdflash_rom_patch();
       if( argv[0][0]!='@' ) cmdflash_show_chip( argv[0][0]!='@' );
     }
-  } else if( cmd_isprefix(PSTR("rom"),argv[1]) ) { 
+  } else if( cmd_isprefix(PSTR("rom"),argv[1]) ) {
     if( argc==2 ) {
       cmdflash_show_rom(argv[0][0]!='@');
     } else if( argc>3 ) {
@@ -124,7 +124,7 @@ static void cmdflash_main(int argc, char * argv[] ) {
         Serial.println( F(" kbyte)") );
         return;
       }
-      cmdflash_romsize_k= size; 
+      cmdflash_romsize_k= size;
       if( argv[0][0]!='@' ) cmdflash_show_rom(argv[0][0]!='@');
     }
   } else {
@@ -133,7 +133,7 @@ static void cmdflash_main(int argc, char * argv[] ) {
 }
 
 
-static const char cmdflash_longhelp[] PROGMEM = 
+static const char cmdflash_longhelp[] PROGMEM =
   "SYNTAX: flash\n"
   "- shows chip size and rom size\n"
   "SYNTAX: flash chip [ auto | 128 | 256 | 512 ]\n"
@@ -151,6 +151,3 @@ static const char cmdflash_longhelp[] PROGMEM =
 int cmdflash_register(void) {
   return cmd_register(cmdflash_main, PSTR("flash"), PSTR("view and control flash size"), cmdflash_longhelp);
 }
-
-
-

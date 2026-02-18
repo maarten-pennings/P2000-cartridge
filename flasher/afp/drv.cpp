@@ -27,7 +27,7 @@ void drv_init() {
   //  7   6   5   4   3   2   1   0  (Arduino pin nums, Dxx)
   // PD7 PD6 PD5 PD4 PD3 PD2 PD1 PD0 (ATMEGA328 port/pin)
   // IO7 IO6 IO5 IO4 IO3  -   -   -  (PCB: flash data pins)
-  PORTD = 0b00000000; 
+  PORTD = 0b00000000;
   DDRD  = 0b00000000;
 
   //  -   -   13  12  11  10  9   8  (Arduino pin nums, Dxx)
@@ -40,7 +40,7 @@ void drv_init() {
   //  21  20  19  18  17  16  15  14  (Arduino pin nums, Dxx)
   //  -   -  PC5 PC4 PC3 PC2 PC1 PC0 (ATMEGA328 port/pin)
   //  -   -  A18 A17 A16 IO2 IO1 IO0  (PCB: flash address and data pins)
-  PORTC = 0b00000000; 
+  PORTC = 0b00000000;
   DDRC  = 0b00111000;  // address lines output
 
   Serial.println( F("drv  : init") );
@@ -51,8 +51,8 @@ void drv_init() {
 // Shortcuts for the control lines (in port B)
 #define SET_OEN(state)    bitWrite(PORTB, 0, state)   // output enable pin flash chip (high for write, low for read)
 #define SET_WEN(state)    bitWrite(PORTB, 1, state)   // write  enable pin flash chip (low for write, high for read)
-#define SET_DAT(state)    bitWrite(PORTB, 2, state)   // Data  line of 74HC595 shift register: DAT (aka SER) 
-#define SET_CLK(state)    bitWrite(PORTB, 3, state)   // Clock line of 74HC595 shift register: CLK (aka SRCLK or SH_CLK) 
+#define SET_DAT(state)    bitWrite(PORTB, 2, state)   // Data  line of 74HC595 shift register: DAT (aka SER)
+#define SET_CLK(state)    bitWrite(PORTB, 3, state)   // Clock line of 74HC595 shift register: CLK (aka SRCLK or SH_CLK)
 #define SET_LAT(state)    bitWrite(PORTB, 4, state)   // Latch line of 74HC595 shift register: LAT (aka RCLK or ST_CLK)
 #define SET_LED(state)    bitWrite(PORTB, 5, state)  // Control the LED integrated on the Nano board
 
@@ -67,13 +67,13 @@ void drv_init() {
 // These pins are spread over 3 pins in port C (A18..A16) and 16 via external shift registers (A15..A0).
 // This function sets all 19 address lines (512k range).
 // The external shift register is wired as LSB first (normally MSB first is used on comms lines).
-void drv_addr_set(uint32_t addr) { 
+void drv_addr_set(uint32_t addr) {
   for( uint8_t i=0; i<16; i++) {
-    bitWrite(PORTB, 2, addr & 1); 
-    PULSE_CLK(); 
+    bitWrite(PORTB, 2, addr & 1);
+    PULSE_CLK();
     addr = addr>>1;
   }
-  PULSE_LAT(); 
+  PULSE_LAT();
   PORTC = (PORTC & 0b11000111) | ((addr<<3) & 0b111000); // Set three MSB of addr
   // flash and shift invariant (CLK and LAT pulsed)
 }
@@ -111,7 +111,7 @@ void drv_io_cfgwrite() {
 // this function writes the bits from io to the various pins.
 // Note, this puts signals on the data aka IO pins of the flash, it does not necesarily write to flash.
 // For this flash needs to be prepared ("byte-program sequence"), see drv_io_write() for that.
-void drv_io_set(uint8_t io) { 
+void drv_io_set(uint8_t io) {
   PORTC = (PORTC & 0b11111000) | (io & 0b00000111); // Three LSBs IO2/IO1/IO0 written
   PORTD = (PORTD & 0b00000111) | (io & 0b11111000); // Five MSBs IO7/IO6/IO5/IO4/IOD3 written
   // flash and shift invariant (port B not touched)
@@ -120,13 +120,13 @@ void drv_io_set(uint8_t io) {
 
 void drv_io_read(uint32_t addr, uint8_t * io, uint8_t size) {
   drv_io_cfgread();
-  SET_OEN(LOW);  
+  SET_OEN(LOW);
     for( uint32_t a=addr; a<addr+size; a++ ) {
       drv_addr_set(a);
       *io= drv_io_get();
       io++;
     }
-  SET_OEN(HIGH);  
+  SET_OEN(HIGH);
   // flash and shift invariant (OEN restored)
 }
 
@@ -165,7 +165,7 @@ bool drv_erase_sector(uint32_t addr) {
   SET_LED(HIGH);
   // Write the chip-erase sequence
   drv_io_cfgwrite();
-  drv_addr_set(0x5555); drv_io_set(0xaa); PULSE_WEN(); 
+  drv_addr_set(0x5555); drv_io_set(0xaa); PULSE_WEN();
   drv_addr_set(0x2aaa); drv_io_set(0x55); PULSE_WEN();
   drv_addr_set(0x5555); drv_io_set(0x80); PULSE_WEN();
   drv_addr_set(0x5555); drv_io_set(0xaa); PULSE_WEN();
@@ -189,7 +189,7 @@ bool drv_erase_chip() {
   SET_LED(HIGH);
   // Write the chip-erase sequence
   drv_io_cfgwrite();
-  drv_addr_set(0x5555); drv_io_set(0xaa); PULSE_WEN(); 
+  drv_addr_set(0x5555); drv_io_set(0xaa); PULSE_WEN();
   drv_addr_set(0x2aaa); drv_io_set(0x55); PULSE_WEN();
   drv_addr_set(0x5555); drv_io_set(0x80); PULSE_WEN();
   drv_addr_set(0x5555); drv_io_set(0xaa); PULSE_WEN();
@@ -216,7 +216,7 @@ bool drv_erase_chip() {
 void drv_id(uint8_t * manid, uint8_t * devid) {
   // Write the id-entry sequence
   drv_io_cfgwrite();
-  drv_addr_set(0x5555); drv_io_set(0xaa); PULSE_WEN(); 
+  drv_addr_set(0x5555); drv_io_set(0xaa); PULSE_WEN();
   drv_addr_set(0x2aaa); drv_io_set(0x55); PULSE_WEN();
   drv_addr_set(0x5555); drv_io_set(0x90); PULSE_WEN();
   // Read the two IDs
@@ -229,8 +229,7 @@ void drv_id(uint8_t * manid, uint8_t * devid) {
   SET_OEN(HIGH);
   // Write the id-exit sequence
   drv_io_cfgwrite();
-  drv_addr_set(0x5555); drv_io_set(0xaa); PULSE_WEN(); 
+  drv_addr_set(0x5555); drv_io_set(0xaa); PULSE_WEN();
   drv_addr_set(0x2aaa); drv_io_set(0x55); PULSE_WEN();
   drv_addr_set(0x5555); drv_io_set(0xF0); PULSE_WEN();
 }
-

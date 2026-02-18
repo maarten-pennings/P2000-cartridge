@@ -3,7 +3,7 @@
 #include "cmd.h"      // https://github.com/maarten-pennings/cmd
 #include "drv.h"      // drv_io_read()
 #include "cmdflash.h" // cmdflash_sectorsize_k()
-#include "cmdwrite.h"  // self
+#include "cmdwrite.h" // self
 
 
 static uint32_t cmdwrite_addr;
@@ -17,7 +17,7 @@ void cmdwrite_stream(int argc, char * argv[] ) {
     if( strcmp(argv[i],"*")==0 ) { // toggle streaming mode
       if( cmd_get_streamfunc()==0 ) cmd_set_streamfunc(cmdwrite_stream); else cmd_set_streamfunc(0);
       continue;
-    } 
+    }
     // Process <data> byte
     uint16_t data1;
     if( !cmd_parse_hex(argv[i],&data1) || data1>=0x100) { Serial.println(F("ERROR: <data> must be hex 00..FF (use * to exit)")); goto exit; }
@@ -35,21 +35,21 @@ void cmdwrite_stream(int argc, char * argv[] ) {
   }
 exit:
   // Set the streaming prompt (will only be shown in streaming mode)
-  cmd_set_streampromptf("w%05lx>> ",cmdwrite_addr); 
+  cmd_set_streampromptf("w%05lx>> ",cmdwrite_addr);
 }
 
 
 void cmdwrite_main(int argc, char * argv[] ) {
-  if( argc==1 ) { 
-    Serial.println(F("ERROR: expected 'stat' or <addr>")); 
-    return; 
+  if( argc==1 ) {
+    Serial.println(F("ERROR: expected 'stat' or <addr>"));
+    return;
   }
 
-  if( cmd_isprefix(PSTR("stats"),argv[1]) ) { 
-    if( argc==2 )  { 
-      cmd_printf("bytes written %d (dec)\r\n",cmdwrite_stats_writecount); 
-      cmd_printf("write errors  %d (dec)\r\n",cmdwrite_stats_errorcount); 
-      cmd_printf("elapsed time  %d (ms)\r\n",millis()-cmdwrite_stats_timems); 
+  if( cmd_isprefix(PSTR("stats"),argv[1]) ) {
+    if( argc==2 )  {
+      cmd_printf("bytes written %d (dec)\r\n",cmdwrite_stats_writecount);
+      cmd_printf("write errors  %d (dec)\r\n",cmdwrite_stats_errorcount);
+      cmd_printf("elapsed time  %d (ms)\r\n",millis()-cmdwrite_stats_timems);
       return;
     }
     if( argc>3 ) { Serial.println(F("ERROR: too many args")); return; }
@@ -78,7 +78,7 @@ void cmdwrite_main(int argc, char * argv[] ) {
 }
 
 
-static const char cmdwrite_longhelp[] PROGMEM = 
+static const char cmdwrite_longhelp[] PROGMEM =
   "SYNTAX: write stats [clear]\n"
   "- with 'clear' reset stats\n"
   "- otherwise prints stats\n"
@@ -105,4 +105,3 @@ static const char cmdwrite_longhelp[] PROGMEM =
 int cmdwrite_register(void) {
   return cmd_register(cmdwrite_main, PSTR("write"), PSTR("write bytes to flash"), cmdwrite_longhelp);
 }
-

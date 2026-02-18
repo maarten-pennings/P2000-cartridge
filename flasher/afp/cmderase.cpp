@@ -49,25 +49,25 @@ static void cmderase_main(int argc, char * argv[] ) {
   if( argc==1 ) {
     cmderase_show();
     return;
-  } 
-  
+  }
+
   if( argc>2 ) {
     Serial.println( F("ERROR: too many args") );
     return;
   }
-  
-  if( strcmp(argv[0],"erase")!=0 ) { 
-    Serial.println( F("ERROR: 'erase' command must be spelled in full to prevent accidental erase")); 
-    return; 
-  }  
- 
-  if( cmd_isprefix(PSTR("all"),argv[1]) ) { 
+
+  if( strcmp(argv[0],"erase")!=0 ) {
+    Serial.println( F("ERROR: 'erase' command must be spelled in full to prevent accidental erase"));
+    return;
+  }
+
+  if( cmd_isprefix(PSTR("all"),argv[1]) ) {
     bool ok= drv_erase_chip();
     if( !ok ) { Serial.println(f("chip erase failed")); return; }
     if( argv[0][0]!='@') Serial.println( F("chip erased") );
-    return; 
-  }  
- 
+    return;
+  }
+
   // Establish S/R mode
   char *s= argv[1];
   uint8_t numsectors=0;
@@ -101,7 +101,7 @@ static void cmderase_main(int argc, char * argv[] ) {
 }
 
 
-static const char cmderase_longhelp[] PROGMEM = 
+static const char cmderase_longhelp[] PROGMEM =
   "SYNTAX: erase\n"
   "- shows which sectors are empty or in use\n"
   "SYNTAX: erase <addr>\n"
@@ -121,4 +121,3 @@ static const char cmderase_longhelp[] PROGMEM =
 int cmderase_register(void) {
   return cmd_register(cmderase_main, PSTR("erase"), PSTR("erase (sector of) the flash"), cmderase_longhelp);
 }
-

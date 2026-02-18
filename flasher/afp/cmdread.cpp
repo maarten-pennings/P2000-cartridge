@@ -19,7 +19,7 @@ static void cmdread_show(uint32_t num) {
   }
   // clip num bytes to flash size
   if( cmdread_addr+num >= cmdflash_chipsize() ) num= cmdflash_chipsize() - cmdread_addr;
-  
+
   bool next=0;
   while( num>0 ) {
     uint32_t sector_addr= cmdread_addr / cmdflash_sectorsize();
@@ -73,8 +73,8 @@ static void cmdread_main(int argc, char * argv[] ) {
   if( argc==1 ) {
     cmdread_show(0x100);
     return;
-  } 
-  
+  }
+
   char *s= argv[1];
   uint32_t factor=1;
   if(      *s=='S' || *s=='s' ) { s++; factor= cmdflash_sectorsize(); }
@@ -93,14 +93,14 @@ static void cmdread_main(int argc, char * argv[] ) {
       return;
     }
   }
-  
+
   cmdread_addr= addr;
   cmdread_verbose= argv[0][0]!='@';
   cmdread_show(num);
 }
 
 
-static const char cmdread_longhelp[] PROGMEM = 
+static const char cmdread_longhelp[] PROGMEM =
   "SYNTAX: read [ <addr> [ <num> ]]\n"
   "- reads <num> bytes from flash, starting at location <addr>\n"
   "- when <num> is absent, reads 256 bytes\n"
@@ -119,4 +119,3 @@ static const char cmdread_longhelp[] PROGMEM =
 int cmdread_register(void) {
   return cmd_register(cmdread_main, PSTR("read"), PSTR("read flash contents"), cmdread_longhelp);
 }
-

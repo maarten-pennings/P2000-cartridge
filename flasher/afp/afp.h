@@ -15,19 +15,19 @@
 
 
 // Application date
-#define AFP_DATE    "2026 feb 18"
+#define AFP_DATE      "2026 feb 18"
 
 
 // Application long name
-#define  AFP_LONGNAME "Arduino Flash Programmer"
+#define AFP_LONGNAME  "Arduino Flash Programmer"
 
 
 // Application author
-#define AFP_AUTHOR  "Maarten Pennings"
+#define AFP_AUTHOR    "Maarten Pennings"
 
 
 // Application banner
-#define  AFP_BANNER "\n\n\n\n"\
+#define AFP_BANNER    "\n\n\n\n"\
   "      _       ________  _______\n"\
   "     / \\     |_   __  ||_   __ \\\n"\
   "    / _ \\      | |_ \\_|  | |__) |\n"\
@@ -38,7 +38,3 @@
 
 
 #endif
-
-
-                                        
-                                    
