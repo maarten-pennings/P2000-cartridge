@@ -1,6 +1,6 @@
 // cmderase.cpp - command handler "erase" to erase (sector of) the flash
 #include <Arduino.h>  // Serial
-#include "cmd.h"      // v8.2.1 https://github.com/maarten-pennings/cmd
+#include "cmd.h"      // https://github.com/maarten-pennings/cmd
 #include "drv.h"      // drv_io_erase()
 #include "cmdflash.h" // cmdflash_sectorsize_k()
 #include "cmderase.h" // self
@@ -52,18 +52,19 @@ static void cmderase_main(int argc, char * argv[] ) {
   } 
   
   if( argc>2 ) {
-    Serial.println( F("'erase' has too many args") );
+    Serial.println( F("ERROR: too many args") );
     return;
   }
   
   if( strcmp(argv[0],"erase")!=0 ) { 
-    Serial.println( F("ERROR: erase: command must be spelled in full to prevent accidental erase")); 
+    Serial.println( F("ERROR: 'erase' command must be spelled in full to prevent accidental erase")); 
     return; 
   }  
  
   if( cmd_isprefix(PSTR("all"),argv[1]) ) { 
     bool ok= drv_erase_chip();
-    if( ok )  Serial.println(F("chip erased")); else  Serial.println(F("ERROR chip erase failed"));
+    if( !ok ) { Serial.println(f("chip erase failed")); return; }
+    if( argv[0][0]!='@') Serial.println( F("chip erased") );
     return; 
   }  
  
@@ -72,21 +73,18 @@ static void cmderase_main(int argc, char * argv[] ) {
   uint8_t numsectors=0;
   if(      *s=='S' || *s=='s' ) { s++; numsectors=1; }
   else if( *s=='R' || *s=='r' ) { s++; numsectors=cmdflash_romsize()/cmdflash_sectorsize(); }
-  if( numsectors==0 ) {
-    Serial.println( F("'erase' its <addr> must start with S or R") );
-    return;
-  }
+  if( numsectors==0 ) { Serial.println( F("ERROR: <addr> must start with S or R") ); return; }
 
   // Compute begin and end sector number
   uint32_t sector1;
   if( ! cmd_parse_hex32(s,&sector1) ) {
-    Serial.println( F("'erase' has error in <addr>") );
+    Serial.println( F("ERROR: <addr> must be hex") );
     return;
   }
   sector1 *= numsectors;
   uint32_t sector2= sector1+numsectors;
   if( sector2 > cmdflash_chipsize()/cmdflash_sectorsize() ) {
-    Serial.println( F("'erase' has <addr> greater than chip size") );
+    Serial.println( F("ERROR: <addr> greater than chip size") );
     return;
   }
 
@@ -98,7 +96,7 @@ static void cmderase_main(int argc, char * argv[] ) {
     cmd_printf( "R%02lx S%02x:", rom_addr, sector );
     bool ok= drv_erase_sector(sector_addr);
     if( !ok ) { Serial.println(f("fail")); return; }
-    Serial.println( F("erased") );
+    if( argv[0][0]!='@') Serial.println( F("erased") );
   }
 }
 
@@ -113,10 +111,10 @@ static const char cmderase_longhelp[] PROGMEM =
   "- when <addr> has form 'r<hex>' (rom) the all its sectors are erased\n"
   "NOTE:\n"
   "- <hex> is in hex\n"
-  "- a sector (16 pages, 4096 bytes) is the unit of erase of the flash chip\n"
+  "- a sector (4096 bytes) is the unit of erase of the flash chip\n"
   "- a rom consists of <rom> sectors, the unit of use (eg ROM cartridge)\n"
   "- <rom> is set with the 'flash' command\n"
-  "- for added safety 'erase <addr>' command can not be abbreviated\n"
+  "- for added safety 'erase' command can not be abbreviated\n"
 ;
 
 

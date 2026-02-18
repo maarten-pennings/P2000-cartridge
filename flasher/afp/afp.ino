@@ -1,11 +1,12 @@
 // afp.ino - Arduino Flash Programmer (for the 39SF010, 39SF020, and 39SF040)
-#include "cmd.h"     // v8.2.1 https://github.com/maarten-pennings/cmd
-#include "cmdinfo.h"
-#include "cmdflash.h"
-#include "cmdread.h"
-#include "cmderase.h"
-#include "drv.h"
-#include "afp.h"
+#include "drv.h"      // drv_init()
+#include "cmd.h"      // https://github.com/maarten-pennings/cmd (written on v8.2.2)
+#include "cmdinfo.h"  // cmdinfo_register()
+#include "cmdflash.h" // cmdflash_register()
+#include "cmdread.h"  // cmdread_register()
+#include "cmderase.h" // cmderase_register()
+#include "cmdwrite.h" // cmdwrite_register()
+#include "afp.h"      // AFP_LONGNAME
 
 
 static void cmds_register() {
@@ -15,6 +16,7 @@ static void cmds_register() {
   cmdhelp_register();
   cmdinfo_register();
   cmdread_register();
+  cmdwrite_register();
   Serial.println( F("cmds : init") );
 }
 

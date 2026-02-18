@@ -1,12 +1,13 @@
 // cmdread.cpp - command handler "read" to read flash contents
 #include <Arduino.h>  // Serial
-#include "cmd.h"      // v8.2.1 https://github.com/maarten-pennings/cmd
+#include "cmd.h"      // https://github.com/maarten-pennings/cmd
 #include "drv.h"      // drv_io_read()
 #include "cmdflash.h" // cmdflash_sectorsize_k()
 #include "cmdread.h"  // self
 
 
-static uint32_t cmdread_addr= 0x00000;
+static uint32_t cmdread_addr;
+static bool     cmdread_verbose;
 
 
 #define BYTES_PER_LINE 16
@@ -24,14 +25,15 @@ static void cmdread_show(uint32_t num) {
     uint32_t sector_addr= cmdread_addr / cmdflash_sectorsize();
     uint32_t rom_addr = sector_addr  / cmdflash_romsize();
 
-    // print divider
-    char sep=0;
-    if( cmdread_addr % 0x100 == 0 ) sep=' ';
-    if( cmdread_addr % cmdflash_sectorsize() == 0 ) sep='-';
-    if( cmdread_addr % cmdflash_romsize() == 0 ) sep='=';
-    if( next && sep ) { for(byte i=0; i<63; i++) Serial.print(sep); Serial.println(); }
-    next= 1;
-
+    if( cmdread_verbose ) {
+      // print divider
+      char sep=0;
+      if( cmdread_addr % 0x100 == 0 ) sep=' ';
+      if( cmdread_addr % cmdflash_sectorsize() == 0 ) sep='-';
+      if( cmdread_addr % cmdflash_romsize() == 0 ) sep='=';
+      if( next && sep ) { for(byte i=0; i<63; i++) Serial.print(sep); Serial.println(); }
+      next= 1;
+    }
 
     // print address(es)
     cmd_printf( "R%02lx S%02lx %05lx:", rom_addr, sector_addr, cmdread_addr );
@@ -44,8 +46,8 @@ static void cmdread_show(uint32_t num) {
       size -= (cmdread_addr % BYTES_PER_LINE);
       if( num>size ) {
         for( uint8_t i=0; i<BYTES_PER_LINE-size; i++ ) {
-          if( i==skip ) cmd_printf(" ");
-          cmd_printf("   ");
+          if( i==skip ) Serial.print(" ");
+          Serial.print("   ");
         }
         skip -= BYTES_PER_LINE-size;
       }
@@ -55,7 +57,7 @@ static void cmdread_show(uint32_t num) {
     uint8_t io[BYTES_PER_LINE];
     drv_io_read(cmdread_addr, io, size);
     for( uint8_t i=0; i<size; i++ ) {
-      if( i==skip ) cmd_printf(" ");
+      if( i==skip ) Serial.print(" ");
       cmd_printf(" %02x",io[i]);
     }
     Serial.println();
@@ -78,27 +80,22 @@ static void cmdread_main(int argc, char * argv[] ) {
   if(      *s=='S' || *s=='s' ) { s++; factor= cmdflash_sectorsize(); }
   else if( *s=='R' || *s=='r' ) { s++; factor= cmdflash_romsize(); }
   uint32_t addr;
-  if( ! cmd_parse_hex32(s,&addr) ) {
-    Serial.println( F("'read' has error in <addr>") );
-    return;
-  }
+  if( ! cmd_parse_hex32(s,&addr) ) { Serial.println( F("ERROR: <addr> must be hex") ); return; }
   addr *= factor;
-  if( addr >= cmdflash_chipsize() ) {
-    Serial.println( F("'read' has <addr> greater than chip size") );
-    return;
-  }
+  if( addr >= cmdflash_chipsize() ) { Serial.println( F("ERROR: <addr> greater than chip size") ); return; }
 
   uint32_t num;
   if( argc==2 ) {
     num = 0x100;
   } else {
     if( ! cmd_parse_hex32(argv[2],&num) ) {
-      Serial.println( F("'read' has error in <num>") );
+      Serial.println( F("ERROR: <num> must be hex") );
       return;
     }
   }
   
   cmdread_addr= addr;
+  cmdread_verbose= argv[0][0]!='@';
   cmdread_show(num);
 }
 

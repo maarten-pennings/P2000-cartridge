@@ -158,7 +158,7 @@ bool drv_io_write(uint32_t addr, uint8_t io) {
 }
 
 
-// This functions erases one sector in the flash. A sector is the smallest unit of erasing; it is 4k byte. Erase means fill with 0xFF.
+// This functions erases one sector in the flash. A sector is the smallest unit of erasing; it is 4kbyte. Erase means fill with 0xFF.
 // Returns true iff erase completes in time (~200us).
 // `addr` is a random address in the (4k) sector, typically use the base address (ie sectornum*0x1000)
 bool drv_erase_sector(uint32_t addr) {

@@ -1,6 +1,6 @@
 // cmdinfo.cpp - command handler "info" for application and cpu info
 #include <Arduino.h>  // Serial
-#include "cmd.h"      // v8.2.1 https://github.com/maarten-pennings/cmd
+#include "cmd.h"      // https://github.com/maarten-pennings/cmd
 #include "afp.h"      // AFP_NAME etc
 #include "cmdinfo.h"  // self
 
@@ -35,14 +35,13 @@ static uint32_t cmdinfo_mega328_Vcc(void) {
 // The handler for the "info" command
 static void cmdinfo_main(int argc, char * argv[] ) {
   (void)argc; // unused
-  (void)argv; // unused
-  Serial.print(F("name   : ")); Serial.println(F(AFP_LONGNAME));
+  if( argv[0][0]!='@' ) { Serial.print(F("name   : ")); Serial.println(F(AFP_LONGNAME)); }
   Serial.print(F("version: ")); Serial.println(F(AFP_VERSION));
-  Serial.print(F("author : ")); Serial.println(F(AFP_AUTHOR));
-  Serial.print(F("date   : ")); Serial.println(F(AFP_DATE));
-  Serial.print(F("voltage: ")); Serial.print( cmdinfo_mega328_Vcc() ); Serial.println(F(" mV"));
-  Serial.print(F("cpufreq: ")); Serial.print( F_CPU ); Serial.println(F(" Hz"));
-  Serial.print(F("uartbuf: ")); Serial.print( SERIAL_RX_BUFFER_SIZE ); Serial.println(F(" bytes"));
+  if( argv[0][0]!='@' ) { Serial.print(F("author : ")); Serial.println(F(AFP_AUTHOR)); }
+  if( argv[0][0]!='@' ) { Serial.print(F("date   : ")); Serial.println(F(AFP_DATE)); }
+  if( argv[0][0]!='@' ) { Serial.print(F("voltage: ")); Serial.print( cmdinfo_mega328_Vcc() ); Serial.println(F(" mV")); }
+  if( argv[0][0]!='@' ) { Serial.print(F("cpufreq: ")); Serial.print( F_CPU ); Serial.println(F(" Hz")); }
+  if( argv[0][0]!='@' ) { Serial.print(F("uartbuf: ")); Serial.print( SERIAL_RX_BUFFER_SIZE ); Serial.println(F(" bytes")); }
 }
 
 
