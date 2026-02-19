@@ -1,9 +1,9 @@
-# P2000 cartridge: convert bin file (from assembler) to adf file for (proprietary) flasher
+# P2000 cartridge: convert bin file (from assembler) to afp file for (proprietary) flasher
 # Maarten Pennings 2026 feb 19
 
 import sys
 from datetime import datetime
-print("P2000 cartridge bin-to-adf")
+print("P2000 cartridge bin-to-afp")
 
 if len(sys.argv) != 4 :
   print("SYNATX patch <infile> <rom#> <outfile>")
