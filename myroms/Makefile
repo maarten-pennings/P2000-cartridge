@@ -1,4 +1,4 @@
-all: res/contents.adf
+all: res/contents.afp
 
 res/contents.ubin: src/contents.asm
 	mkdir -p res
@@ -7,8 +7,8 @@ res/contents.ubin: src/contents.asm
 res/contents.bin: res/contents.ubin patch.py
 	python3 patch.py   res/contents.ubin   res/contents.bin
 
-res/contents.adf: res/contents.bin adf.py 
-	python3 adf.py   res/contents.bin   0   res/contents.adf
+res/contents.afp: res/contents.bin afp.py 
+	python3 afp.py   res/contents.bin   0   res/contents.afp
 
 clean:
 	rm -rf res

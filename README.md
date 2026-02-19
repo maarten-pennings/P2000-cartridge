@@ -50,7 +50,7 @@ List of candidate cartridges can be found on the
 [P2000T Preservation Project](https://github.com/p2000t/software/tree/main/cartridges).
 
 
-### Own cartridgeL Contents
+### Own cartridge: Contents
 
 The proposal is that the first ROM is a sort of table of contents.
 I made the [Contents](myroms) ROM myself. 

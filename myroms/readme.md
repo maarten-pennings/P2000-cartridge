@@ -28,7 +28,7 @@ It does mean that just copying the 2000 bytes is enough.
 
 ## Implementation
 
-For the source file, see the [src directory](contents.asm).
+For the source file, see the [src directory](src/contents.asm).
 
 Notes
 
@@ -71,7 +71,7 @@ There are some Python scripts to process bin files.
 
 ### Patch
 
-To compute the checksum, we have written a python program [patch](patch.py).
+To compute the checksum, we have written a python program [`patch`](patch.py).
 This reads a bin file produced by the assembler, computes the checksum, and 
 overwrites the associated bytes in the header.
 
@@ -84,8 +84,8 @@ Typically they are shorter.
 Since we want to make a multi ROM, we need to concatenate 8 ROMs into one big one 
 and offer that to the flash programmer.
 
-The Python script [pad](pad.py) pads a binary to be exactly 16 k bytes.
-It is your choice whether to first run Patch and then Pad or the other way around.
+The Python script [`pad`](pad.py) pads a binary to be exactly 16 k bytes.
+It is your choice whether to first run `patch` and then `pad` or the other way around.
 The first one boots faster, in the second one, all padding bytes are 
 included in the checksum.
 
@@ -99,21 +99,21 @@ As a result, when using our proprietary flasher, there is no need to use Pad.
 
 ### AFP
 
-We have written a proprietary flasher, called the [Android Flash programmer](../flasher).
+We have written a proprietary flasher, called the AFP or [Android Flash Programmer](../flasher).
 This device has a user interface via the virtual COM port (over USB).
 This interface is textual, there is a `read` command, an `erase` command and a `write` command.
 
-The Python [afp](afp.py) script converts a binary to a text file that can be fed 
-into this virtual COM port.
+The Python [`afp`](afp.py) script converts a binary to a text file that can be fed 
+via this virtual COM port into the AFP flasher.
 
 
 ## Makefile
 
-There is a [Makefile][Makefile] that compiles the [assembler](src/contents.asm) to an
-unpatched bin file (`.ubin`). Next the Python patch script is run. It patches the 
+There is a [Makefile](Makefile) that compiles the [assembly source](src/contents.asm) to an
+unpatched bin file (`.ubin`). Next the Python `patch` script is run. It patches the 
 checksum an generates a `.bin` file. You can run this in the [emulator](https://github.com/p2000t/M2000)
 
-The makefile also generates the `.adf` script that can be sent to the 
+The makefile also generates the `.afp` script that can be sent to the 
 [Android Flash programmer](../flasher).
 
 I develop on Windows, but use WSL to install the Z80 assembler.
