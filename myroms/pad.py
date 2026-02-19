@@ -1,4 +1,4 @@
-# P2000 cartridge pad to 16k
+# P2000 cartridge: pad cartridge with FF bytes to 16k
 # Maarten Pennings 2026 feb 14
 
 import sys

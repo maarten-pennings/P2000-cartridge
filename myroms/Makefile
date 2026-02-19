@@ -1,14 +1,14 @@
-all: res/contents.bin
+all: res/contents.adf
 
-res/contents.subin: src/contents.asm
+res/contents.ubin: src/contents.asm
 	mkdir -p res
-	z80asm   src/contents.asm   -o res/contents.subin
+	z80asm   src/contents.asm   -o res/contents.ubin
 
-res/contents.sbin: res/contents.subin
-	python3 patch.py   res/contents.subin   res/contents.sbin
+res/contents.bin: res/contents.ubin patch.py
+	python3 patch.py   res/contents.ubin   res/contents.bin
 
-res/contents.bin: res/contents.sbin
-	python3 pad.py   res/contents.sbin   res/contents.bin
+res/contents.adf: res/contents.bin adf.py 
+	python3 adf.py   res/contents.bin   0   res/contents.adf
 
 clean:
 	rm -rf res

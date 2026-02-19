@@ -1,4 +1,4 @@
-# P2000 cartridge header patching the initial checksum
+# P2000 cartridge: patching the initial checksum in the header
 # Maarten Pennings 2026 feb 14
 
 import sys
