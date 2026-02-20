@@ -26,6 +26,16 @@ I did some [analysis](analysis.md) coming to the following conclusions:
 - No reset switch - we don't need it.
 
 
+## Design
+
+With the analysis phase done, let's make the PCB.
+Design it, manufacture it, test track connections, assemble it, and test functionality.
+ 
+![PCB assembled](images/pcb-assembled.jpg)
+ 
+Find all design files (schematics, layout, gerber) in the [pcb](pcb) directory.
+
+
 ## Which ROMs?
 
 Which ROMs to put on the multi-ROM cartridge?
@@ -57,33 +67,6 @@ I made the [Contents](myroms) ROM myself.
 It is written in assembler, but rather simple: just an LDIR to copy a screen image to the frame buffer.
 
 ![Screenshot Collection](images/collection.png)
-
-
-## Design
-
-I designed a PCB in [EasyEda](https://easyeda.com).
-
-- Schematics [pdf](pcb/P2000Cartridge-schem.pdf) and [json](pcb/P2000Cartridge-schem.json)
-- Layout in pdf [front](pcb/P2000Cartridge-pcb-front.pdf) and [back](pcb/P2000Cartridge-pcb-back.pdf)
-- The final [gerber](pcb/P2000Cartridge-gerber.zip) for ordering.
-
-I double checked the socket since I don't have it yet.
-
-![socket](pcb/PLCC32-pinout.png) 
-
-
-The render of the PCB.
-
-![PCB render](pcb/P2000Cartridge-render.png)
-
-![PCB bare](images/pcb-bare.jpg)
-
-![PCB assembled](images/pcb-assembled.jpg)
-
-I probably should
-- have put a pin one marking on the PCB (for the flash socket)
-- placed the flash socket even higher to make it fit in a standard P2000 cartridge (the socket is the thickest, up in the cartrdige there is more depth).
-- have flipped the dip-switch footprint so that bit 1 is the right-most instead of the left-most.
 
 
 ## Cost 
