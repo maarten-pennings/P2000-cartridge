@@ -22,7 +22,7 @@ jobs:
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
         with:
-          name: contents
+          name: contents.zip
           path: |
             roms/res/contents.bin
             roms/res/contents.afp
