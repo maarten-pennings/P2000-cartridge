@@ -1,8 +1,8 @@
 all: res/contents.afp
 
-res/contents.ubin: src/contents.asm
+res/contents.ubin: myroms/contents.asm
 	mkdir -p res
-	z80asm   src/contents.asm   -o res/contents.ubin
+	z80asm   myroms/contents.asm   -o res/contents.ubin
 
 res/contents.bin: res/contents.ubin patch.py
 	python3 patch.py   res/contents.ubin   res/contents.bin

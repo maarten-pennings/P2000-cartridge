@@ -16,7 +16,7 @@ jobs:
         run: sudo apt-get update && sudo apt-get install -y z80asm make
 
       - name: Run Makefile
-        working-directory: ./myroms
+        working-directory: ./roms
         run: make
 
       - name: Upload build artifact
@@ -24,6 +24,6 @@ jobs:
         with:
           name: contents
           path: |
-            myroms/res/contents.bin
-            myroms/res/contents.afp
+            roms/res/contents.bin
+            roms/res/contents.afp
 
