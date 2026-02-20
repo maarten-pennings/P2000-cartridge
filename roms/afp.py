@@ -28,9 +28,10 @@ lines.append(f"// source {inname}\n")
 lines.append(f"// target {outname}\n")
 lines.append(f"// date   {datetime.now()}\n")
 lines.append(f"\n")
-lines.append(f"write stats clear\n")
+lines.append(f"@echo faults\n")
+lines.append(f"@write stats clear\n")
 lines.append(f"erase R{rom}\n")
-lines.append(f"// wait for erase\n")
+lines.append(f"// wait 100ms (10 lines) for erase\n")
 lines.append(f"\n") #  10ms
 lines.append(f"\n") #  20ms
 lines.append(f"\n") #  30ms

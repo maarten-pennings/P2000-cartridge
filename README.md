@@ -53,20 +53,29 @@ Likely cartridge images are:
 - [Assembler](https://github.com/p2000t/software/blob/main/cartridges/assembler%205.9.bin)
 - [JWS Disk BASIC](https://github.com/p2000t/software/blob/main/cartridges/JWSBasic.bin) because we found a P2000 with built-in JWS drive.
   It seems this was developed by Jan-Willem Sparnaaij to enable floppy disks instead of the cassette recorder in BASIC.
-- [Familiegeheugen](https://github.com/p2000t/software/blob/main/cartridges/familiegeheugen%204.bin)
-- [Maintenance](https://github.com/p2000t/software/blob/main/cartridges/Maintenance%202.bin), a test cartridge.
+- [Familiegeheugen 4](https://github.com/p2000t/software/blob/main/cartridges/familiegeheugen%204.bin)
+- [Maintenance 2](https://github.com/p2000t/software/blob/main/cartridges/Maintenance%202.bin), a test cartridge.
 
 List of candidate cartridges can be found on the 
 [P2000T Preservation Project](https://github.com/p2000t/software/tree/main/cartridges).
+
+The ones listed here are ["backed up"](roms/stockroms) in this repo.
 
 
 ### Own cartridge: Contents
 
 The proposal is that the first ROM is a sort of table of contents.
-I made the [Contents](myroms) ROM myself. 
+I made the [Contents](roms) ROM myself. 
 It is written in assembler, but rather simple: just an LDIR to copy a screen image to the frame buffer.
 
 ![Screenshot Collection](images/collection.png)
+
+
+### Makefile
+
+The [roms](roms) directory contains a sub directory with the [stockroms](roms/stockroms) and a sub directory
+with [myroms](roms/myroms] (the Contents rom). It also contains a [Makefile](roms/Makefile) to compile 
+myroms to a bin and convert all bins (from myroms and from stockroms) to flash scripts (*.afp).
 
 
 ## Cost 
