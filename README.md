@@ -80,6 +80,12 @@ The render of the PCB.
 
 ![PCB assembled](images/pcb-assembled.jpg)
 
+I probably should
+- have put a pin one marking on the PCB (for the flash socket)
+- placed the flash socket even higher to make it fit in a standard P2000 cartridge (the socket is the thickest, up in the cartrdige there is more depth).
+- have flipped the dip-switch footprint so that bit 1 is the right-most instead of the left-most.
+
+
 ## Cost 
 
 Overview of the [cost](cost.md).
