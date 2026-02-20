@@ -91,18 +91,20 @@ kbdret:
 
     
 ; -----------------------------------------------------------
-; data for 2 screens of 25 rows of 40 columns
+; Data for 2 screens: 25 rows and 80 columns
 screens:
-    ;  0 000 ABK alpha-black
-    ;  1 001 ANR alpha-red
-    ;  2 002 ANG alpha-green
-    ;  3 003 ANY alpha-yelloW
-    ;  4 004 ANB alpha-blue
-    ;  5 005 ANM alpha-magenta
-    ;  6 006 ANC alpha-cyan
-    ;  7 007 ANW alpha-white
-    ; 13 015 DBH double height
-    ; 19 023 MSY mosaic yellow
+    ; Characters with color/graphics control
+    ; dec  oct code  name
+    ;   0 \000  ABK  alpha-black
+    ;   1 \001  ANR  alpha-red
+    ;   2 \002  ANG  alpha-green
+    ;   3 \003  ANY  alpha-yellow
+    ;   4 \004  ANB  alpha-blue
+    ;   5 \005  ANM  alpha-magenta
+    ;   6 \006  ANC  alpha-cyan
+    ;   7 \007  ANW  alpha-white
+    ;  13 \015  DBH  double height
+    ;  19 \023  MSY  mosaic yellow
     ;   01234567890123456789012345678901234567890123456789012345678901234567890123456789
     DB "                                                                                " ;  0
     DB "        \023,,,,,,,,,,,,,,,,,,,,,,                                                 " ;  1
