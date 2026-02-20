@@ -29,6 +29,8 @@ main:
     LD DE,0x5000   ; frame buffer
     LDIR
     
+
+; -----------------------------------------------------------
 loop:
     ; switch to left-most screen
     LD A,0
@@ -44,27 +46,14 @@ loop:
 
   
 ; -----------------------------------------------------------
-; Wait a bit 
-; Destroys: B, C
-delay:
-    LD B,80
-delay1:
-    LD C,0
-delay2:
-    DEC C
-    JP NZ,delay2
-    DEC B
-    JP NZ,delay1
-    RET
-    
-
-; -----------------------------------------------------------
-; Spins until a key is pressed, then returns
+; Spins until a key is released, then pressed, then returns
 ; Destroys: A, B, C
 waitforkey:
     CALL checkkbd
-    JP Z,waitforkey
-    CALL delay ; debounce
+    JP NZ,waitforkey
+waitforkey1:
+    CALL checkkbd
+    JP Z,waitforkey1
     RET
 
     
@@ -107,27 +96,27 @@ screens:
     ;  19 \023  MSY  mosaic yellow
     ;   01234567890123456789012345678901234567890123456789012345678901234567890123456789
     DB "                                                                                " ;  0
-    DB "        \023,,,,,,,,,,,,,,,,,,,,,,                                                 " ;  1
-    DB "        \003\015Erix Collection                                                       " ;  2
+    DB "       \023,,,,,,,,,,,,,,,,,,,,,,,,                                                " ;  1
+    DB "       \003\015Erix Collection                                                        " ;  2
     DB "                                                                                " ;  3
-    DB "        \023,,,,,,,,,,,,,,,,,,,,,,                                                 " ;  4
-    DB "        \006\015000\007Contents                  \003Shop                                   " ;  5
+    DB "       \023,,,,,,,,,,,,,,,,,,,,,,,,                                                " ;  4
+    DB "       \006\015000--\007Contents                 \003Shop                                   " ;  5
     DB "                                        \006https://www.erixcollectables.nl/       " ;  6
-    DB "        \006\015001\007Basic NL                  \007Near Eindhoven, NL                     " ;  7
+    DB "       \006\015100--\007Basic NL                 \007Near Eindhoven, NL                     " ;  7
     DB "                                                                                " ;  8
-    DB "        \006\015010\007Forth                                                             " ;  9
+    DB "       \006\015010--\007Forth                                                            " ;  9
     DB "                                                                                " ; 10
-    DB "        \006\015011\007UCSD Pascal               \003Repository with sources                " ; 11
+    DB "       \006\015110--\007UCSD Pascal              \003Repository with sources                " ; 11
     DB "                                        \006https://github.com/maarten-pennings    " ; 12
-    DB "        \006\015100\007Assembler                 \006  /P2000-cartridge                     " ; 13
+    DB "       \006\015001--\007Assembler                \006  /P2000-cartridge                     " ; 13
     DB "                                                                                " ; 14
-    DB "        \006\015101\007JWS Disk BASIC                                                    " ; 15
+    DB "       \006\015101--\007JWS Disk BASIC                                                   " ; 15
     DB "                                                                                " ; 16
-    DB "        \006\015110\007Familiegeheugen           \003Repository with roms                   " ; 17
+    DB "       \006\015011--\007Familiegeheugen          \003Repository with roms                   " ; 17
     DB "                                        \006https://github.com/p2000t/software     " ; 18
-    DB "        \006\015111\007Maintenance               \006  /tree/main/cartridges                " ; 19
+    DB "       \006\015111--\007Maintenance              \006  /tree/main/cartridges                " ; 19
     DB "                                                                                " ; 20
-    DB "        \023,,,,,,,,,,,,,,,,,,,,,,                                                 " ; 21
+    DB "       \023,,,,,,,,,,,,,,,,,,,,,,,,                                                " ; 21
     DB "        \005 off;set dipswitch;on                                                  " ; 22
     DB "                                                                                " ; 23
     DB "                                                                                " ; 24
