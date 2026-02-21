@@ -1,52 +1,52 @@
 roms: myroms stockroms
 
-myroms: res/contents.afp
+myroms: generated/contents.afp
 
-stockroms: res/BASICNL1.1.afp  res/Forth.afp  res/UCSD-Pascal.afp  res/assembler-5.9.afp  res/JWSBasic.afp  res/familiegeheugen-4.afp  res/Maintenance-2.afp 
-
-
-
-res/contents.ubin: myroms/contents.asm
-	mkdir -p res
-	z80asm   myroms/contents.asm   -o res/contents.ubin
-
-res/contents.bin: res/contents.ubin patch.py  patch.py
-	python3 patch.py   res/contents.ubin   res/contents.bin
-
-res/contents.afp: res/contents.bin afp.py  afp.py
-	python3 afp.py   res/contents.bin                  0   res/contents.afp
+stockroms: generated/BASICNL1.1.afp  generated/Forth.afp  generated/UCSD-Pascal.afp  generated/assembler-5.9.afp  generated/JWSBasic.afp  generated/familiegeheugen-4.afp  generated/Maintenance-2.afp 
 
 
 
-res/BASICNL1.1.afp: stockroms/BASICNL1.1.bin  afp.py
-	mkdir -p res
-	python3 afp.py   stockroms/BASICNL1.1.bin          1   res/BASICNL1.1.afp
+generated/contents.ubin: myroms/contents.asm
+	mkdir -p generated
+	z80asm   myroms/contents.asm   -o generated/contents.ubin
+
+generated/contents.bin: generated/contents.ubin patch.py  patch.py
+	python3 patch.py   generated/contents.ubin   generated/contents.bin
+
+generated/contents.afp: generated/contents.bin afp.py  afp.py
+	python3 afp.py   generated/contents.bin                  0   generated/contents.afp
+
+
+
+generated/BASICNL1.1.afp: stockroms/BASICNL1.1.bin  afp.py
+	mkdir -p generated
+	python3 afp.py   stockroms/BASICNL1.1.bin          1   generated/BASICNL1.1.afp
   
-res/Forth.afp: stockroms/Forth.bin  afp.py
-	mkdir -p res
-	python3 afp.py   stockroms/Forth.bin               2   res/Forth.afp
+generated/Forth.afp: stockroms/Forth.bin  afp.py
+	mkdir -p generated
+	python3 afp.py   stockroms/Forth.bin               2   generated/Forth.afp
   
-res/UCSD-Pascal.afp: stockroms/UCSD-Pascal.bin  afp.py
-	mkdir -p res
-	python3 afp.py   stockroms/UCSD-Pascal.bin         3   res/UCSD-Pascal.afp
+generated/UCSD-Pascal.afp: stockroms/UCSD-Pascal.bin  afp.py
+	mkdir -p generated
+	python3 afp.py   stockroms/UCSD-Pascal.bin         3   generated/UCSD-Pascal.afp
 
-res/assembler-5.9.afp: stockroms/assembler-5.9.bin  afp.py
-	mkdir -p res
-	python3 afp.py   stockroms/assembler-5.9.bin       4   res/assembler-5.9.afp
+generated/assembler-5.9.afp: stockroms/assembler-5.9.bin  afp.py
+	mkdir -p generated
+	python3 afp.py   stockroms/assembler-5.9.bin       4   generated/assembler-5.9.afp
 
-res/JWSBasic.afp: stockroms/JWSBasic.bin  afp.py
-	mkdir -p res
-	python3 afp.py   stockroms/JWSBasic.bin            5   res/JWSBasic.afp
+generated/JWSBasic.afp: stockroms/JWSBasic.bin  afp.py
+	mkdir -p generated
+	python3 afp.py   stockroms/JWSBasic.bin            5   generated/JWSBasic.afp
   
-res/familiegeheugen-4.afp: stockroms/familiegeheugen-4.bin  afp.py
-	mkdir -p res
-	python3 afp.py   stockroms/familiegeheugen-4.bin   6   res/familiegeheugen-4.afp
+generated/familiegeheugen-4.afp: stockroms/familiegeheugen-4.bin  afp.py
+	mkdir -p generated
+	python3 afp.py   stockroms/familiegeheugen-4.bin   6   generated/familiegeheugen-4.afp
 
-res/Maintenance-2.afp: stockroms/Maintenance-2.bin  afp.py
-	mkdir -p res
-	python3 afp.py   stockroms/Maintenance-2.bin       7   res/Maintenance-2.afp
+generated/Maintenance-2.afp: stockroms/Maintenance-2.bin  afp.py
+	mkdir -p generated
+	python3 afp.py   stockroms/Maintenance-2.bin       7   generated/Maintenance-2.afp
 
 
 
 clean:
-	rm -rf res
+	rm -rf generated

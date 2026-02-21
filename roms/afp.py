@@ -6,7 +6,7 @@ from datetime import datetime
 print("P2000 cartridge bin-to-afp")
 
 if len(sys.argv) != 4 :
-  print("SYNATX patch <infile> <rom#> <outfile>")
+  print("SYNTAX python[3] afp.py <infile> <rom#> <outfile>")
   sys.exit(20)
 inname= sys.argv[1]
 rom= int(sys.argv[2])

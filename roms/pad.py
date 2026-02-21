@@ -6,7 +6,7 @@ newlen= 16*1024
 print( "P2000 cartridge header padder")
 
 if len(sys.argv) != 3 :
-  print("SYNATX pad <infile> <outfile>")
+  print("SYNTAX python[3] pad.py <infile> <outfile>")
   sys.exit(20)
 inname= sys.argv[1]
 outname= sys.argv[2]

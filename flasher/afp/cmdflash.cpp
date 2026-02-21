@@ -135,15 +135,15 @@ static void cmdflash_main(int argc, char * argv[] ) {
 
 static const char cmdflash_longhelp[] PROGMEM =
   "SYNTAX: flash\n"
-  "- shows chip size and rom size\n"
+  "- shows configured chip size and rom size\n"
   "SYNTAX: flash chip [ auto | 128 | 256 | 512 ]\n"
   "- without arguments shows configured chip size (default 128)\n"
   "- with arguments sets chip size (in k byte)\n"
-  "- with argument 'auto' queries flash chip for size\n"
+  "- with argument 'auto' queries flash chip for size and configures that\n"
   "SYNTAX: flash rom [ <size> ]\n"
-  "- without arguments shows configured rom size (default 4)\n"
+  "- without arguments shows configured rom size (default 16)\n"
   "- with argument sets rom size (in k byte)\n"
-  "- rom size is for convenience in 'read', 'write' commands\n"
+  "- rom size is a convenience feature for other commands (erase rom 3)\n"
   "- rom size is intended to match ROM size in multi-ROM\n"
 ;
 

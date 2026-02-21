@@ -22,14 +22,14 @@ jobs:
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
         with:
-          name: contents.zip
+          name: roms.zip
           path: |
-            roms/res/contents.bin
-            roms/res/contents.afp
-            roms/res/BASICNL1.1.afp
-            roms/res/Forth.afp
-            roms/res/UCSD-Pascal.afp
-            roms/res/assembler-5.9.afp
-            roms/res/JWSBasic.afp
-            roms/res/familiegeheugen-4.afp
-            roms/res/Maintenance-2.afp
+            roms/generated/contents.bin
+            roms/generated/contents.afp
+            roms/generated/BASICNL1.1.afp
+            roms/generated/Forth.afp
+            roms/generated/UCSD-Pascal.afp
+            roms/generated/assembler-5.9.afp
+            roms/generated/JWSBasic.afp
+            roms/generated/familiegeheugen-4.afp
+            roms/generated/Maintenance-2.afp

@@ -5,7 +5,7 @@ import sys
 print("P2000 cartridge header patcher")
 
 if len(sys.argv) != 3 :
-  print("SYNATX patch <infile> <outfile>")
+  print("SYNTAX python[3] patch.py <infile> <outfile>")
   sys.exit(20)
 inname= sys.argv[1]
 outname= sys.argv[2]
