@@ -53,7 +53,7 @@ Likely cartridge images are:
 - [Assembler](https://github.com/p2000t/software/blob/main/cartridges/assembler%205.9.bin)
 - [JWS Disk BASIC](https://github.com/p2000t/software/blob/main/cartridges/JWSBasic.bin) because we found a P2000 with built-in JWS drive.
   It seems this was developed by Jan-Willem Sparnaaij to enable floppy disks instead of the cassette recorder in BASIC.
-- [Familiegeheugen 4](https://github.com/p2000t/software/blob/main/cartridges/familiegeheugen%204.bin)
+- [ECOL](https://github.com/p2000t/software/blob/main/cartridges/ECOL3.0.bin), the Educative COmputer Language.
 - [Maintenance 2](https://github.com/p2000t/software/blob/main/cartridges/Maintenance%202.bin), a test cartridge.
 
 List of candidate cartridges can be found on the 
