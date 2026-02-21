@@ -2,7 +2,7 @@ roms: myroms stockroms
 
 myroms: generated/contents.afp
 
-stockroms: generated/BASICNL1.1.afp  generated/Forth.afp  generated/UCSD-Pascal.afp  generated/assembler-5.9.afp  generated/JWSBasic.afp  generated/familiegeheugen-4.afp  generated/Maintenance-2.afp 
+stockroms: generated/BASICNL1.1.afp  generated/Forth.afp  generated/UCSD-Pascal.afp  generated/assembler-5.9.afp  generated/JWSBasic.afp  generated/ECOL3.0.afp  generated/Maintenance-2.afp 
 
 
 
@@ -14,7 +14,7 @@ generated/contents.bin: generated/contents.ubin patch.py  patch.py
 	python3 patch.py   generated/contents.ubin   generated/contents.bin
 
 generated/contents.afp: generated/contents.bin afp.py  afp.py
-	python3 afp.py   generated/contents.bin                  0   generated/contents.afp
+	python3 afp.py   generated/contents.bin            0   generated/contents.afp
 
 
 
@@ -38,9 +38,9 @@ generated/JWSBasic.afp: stockroms/JWSBasic.bin  afp.py
 	mkdir -p generated
 	python3 afp.py   stockroms/JWSBasic.bin            5   generated/JWSBasic.afp
   
-generated/familiegeheugen-4.afp: stockroms/familiegeheugen-4.bin  afp.py
+generated/ECOL3.0.afp: stockroms/ECOL3.0.bin  afp.py
 	mkdir -p generated
-	python3 afp.py   stockroms/familiegeheugen-4.bin   6   generated/familiegeheugen-4.afp
+	python3 afp.py   stockroms/ECOL3.0.bin             6   generated/ECOL3.0.afp
 
 generated/Maintenance-2.afp: stockroms/Maintenance-2.bin  afp.py
 	mkdir -p generated

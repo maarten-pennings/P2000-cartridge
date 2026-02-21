@@ -112,7 +112,7 @@ screens:
     DB "                                                                                " ; 14
     DB "       \006\015101--\007JWS Disk BASIC                                                   " ; 15
     DB "                                                                                " ; 16
-    DB "       \006\015011--\007Familiegeheugen          \003Repository with roms                   " ; 17
+    DB "       \006\015011--\007Edu COmp Lang 3          \003Repository with roms                   " ; 17
     DB "                                        \006https://github.com/p2000t/software     " ; 18
     DB "       \006\015111--\007Maintenance              \006  /tree/main/cartridges                " ; 19
     DB "                                                                                " ; 20
