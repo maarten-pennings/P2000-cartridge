@@ -72,7 +72,7 @@ There are some Python scripts to process bin files.
 ### Patch
 
 To compute the checksum for any P2000 ROM image, we have written a python program [`patch`](patch.py).
-This reads a bin file - for example ours as produced by the assembler - computes the checksum, and 
+This reads a `.bin` file - for example ours as produced by the assembler - computes the checksum, and 
 overwrites the associated bytes in the header.
 
 The `patch` script assumes the whole file should be part of the checksum. We have noticed that 
@@ -88,7 +88,7 @@ Typically they are shorter.
 Since we want to make a multi ROM, we need to concatenate 8 ROMs into one big one 
 and offer that to the flash programmer.
 
-The Python script [`pad`](pad.py) pads a binary (with 0xFF bytes) to be exactly 16 k bytes.
+The Python script [`pad`](pad.py) pads a `.bin` file with 0xFF bytes to be exactly 16 k bytes.
 It is your choice whether to first run `patch` and then `pad` or the other way around.
 The first one boots faster, in the second one, all padding bytes are 
 included in the checksum.
@@ -103,18 +103,23 @@ included in the checksum.
 ### AFP
 
 We have written a proprietary flasher, called the AFP or [Arduino Flash Programmer](../flasher).
-This device has a user interface via the virtual COM port (over USB).
+AFP is a tool made from an Arduino sketch and a Nano; this tool burns flash memories.
+AFP has a user interface via the virtual COM port (over USB).
 This interface is textual, there is a `read` command, an `erase` command and a `write` command.
 
-The Python [`afp`](afp.py) script converts a binary to a text file with `afp` commands.
-The text file can be sent via the virtual COM port into the AFP tool.
+The Python [`afp`](afp.py) script converts a `.bin` file to a `.afp` file, a text file with 
+commands for the AFP tool. The generated `.afp` file contains one `erase` command for the area 
+the binary is mapped to, and one `write` command with (up to) 16 k bytes of data for that area.
+
+The `.afp` file can be sent via the virtual COM port in the AFP tool.
 
 
 ### Burn
 
-For each ROM an .afp file is generated. This is a text file, which can be sent via the virtual COM port to the AFP tool.
-The problem when sending this .afp file to the AFP tool, the sender (the PC) is much faster than the micro controller 
-in the AFP tool. The result is that the AFP tool can't keep up, commands get scrambled or lost.
+For each ROM an `.afp` file is generated. This is a text file, which can be sent 
+via the virtual COM port to the AFP tool. The problem when sending such an `.afp` file 
+to the AFP tool is speed difference: the sender (the PC) is much faster than the micro controller 
+in the AFP tool (Nano). The result is that the AFP tool can't keep up, commands get scrambled or lost.
 
 One solution is to use a terminal tool that not only can sent text files, but which can also be
 throttled by setting a line delay (of say 10ms per line).
@@ -122,7 +127,7 @@ throttled by setting a line delay (of say 10ms per line).
 Another solution is to only send the next line when the previous is executed.
 The AFP tool signals this by sending a prompt (`>>`) back.
 
-The Python [`burn`](burn.py) script does just that. It sends .afp files to the AFP tool, line by line, 
+The Python [`burn`](burn.py) script does just that. It sends `.afp` files to the AFP tool, line by line, 
 each time waiting for the prompt.
 
 
@@ -130,18 +135,23 @@ each time waiting for the prompt.
 
 There is a [Makefile](Makefile) that compiles the [assembly source](src/contents.asm) to an
 unpatched bin file (`.ubin`). Next the Python `patch` script is run. It patches the 
-checksum an generates a `.bin` file. You can run this in the [emulator](https://github.com/p2000t/M2000).
+checksum and generates a `.bin` file. You can run this in the [emulator](https://github.com/p2000t/M2000).
 
-The makefile also generates the `.afp` script that can be sent to the 
-[Arduino Flash programmer](../flasher).
+The makefile also generates the `.afp` files that can be sent to the 
+[Arduino Flash programmer](../flasher). Not only for the `contents.bin`, but also
+for the other seven [stock roms](stockroms).
 
 I develop on Windows, but use WSL to install the Z80 assembler.
-This repo also has a workflow to do this every push, see the [workflow](../.github/workflows/build_contents.yml).
+This repo also has a workflow to do this every Git push, see the 
+[workflow](../.github/workflows/build_contents.yml).
 
 On the [GitHub actions dashboard](https://github.com/maarten-pennings/P2000-cartridge/actions) 
-you see every run. Click one, and on the next screen at the bottom, download the build results called "contents".
+you see every run. Click one, and on the next screen at the bottom, download the build results called "roms.zip".
 
 ![GitHub actions dashboard](../images/github-actions.png)
+
+It contains the compiled contents (.bin). It also contains the .afp files of all rom; from contents.bin,
+but also from all stock roms.
 
 (end)
 
