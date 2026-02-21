@@ -74,8 +74,8 @@ It is written in assembler, but rather simple: just an LDIR to copy a screen ima
 ### Makefile
 
 The [roms](roms) directory contains a sub directory with the [stockroms](roms/stockroms) and a sub directory
-with [myroms](roms/myroms] (the Contents rom). It also contains a [Makefile](roms/Makefile) to compile 
-myroms to a bin and convert all bins (from myroms and from stockroms) to flash scripts (*.afp).
+with [myroms](roms/myroms) (the Contents rom). It also contains a [Makefile](roms/Makefile) to compile 
+myroms to a `.bin` and convert all `.bin` files (from myroms and from stockroms) to flash scripts (`.afp`).
 
 
 ## Cost 
