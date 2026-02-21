@@ -107,7 +107,23 @@ This device has a user interface via the virtual COM port (over USB).
 This interface is textual, there is a `read` command, an `erase` command and a `write` command.
 
 The Python [`afp`](afp.py) script converts a binary to a text file with `afp` commands.
-The text file can be sent via the virtual COM port into the AFP flasher.
+The text file can be sent via the virtual COM port into the AFP tool.
+
+
+### Burn
+
+For each ROM an .afp file is generated. This is a text file, which can be sent via the virtual COM port to the AFP tool.
+The problem when sending this .afp file to the AFP tool, the sender (the PC) is much faster than the micro controller 
+in the AFP tool. The result is that the AFP tool can't keep up, commands get scrambled or lost.
+
+One solution is to use a terminal tool that not only can sent text files, but which can also be
+throttled by setting a line delay (of say 10ms per line).
+
+Another solution is to only send the next line when the previous is executed.
+The AFP tool signals this by sending a prompt (`>>`) back.
+
+The Python [`burn`](burn.py) script does just that. It sends .afp files to the AFP tool, line by line, 
+each time waiting for the prompt.
 
 
 ## Makefile

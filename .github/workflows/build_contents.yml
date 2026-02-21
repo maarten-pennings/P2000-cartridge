@@ -25,11 +25,11 @@ jobs:
           name: roms.zip
           path: |
             roms/generated/contents.bin
-            roms/generated/contents.afp
-            roms/generated/BASICNL1.1.afp
-            roms/generated/Forth.afp
-            roms/generated/UCSD-Pascal.afp
-            roms/generated/assembler-5.9.afp
-            roms/generated/JWSBasic.afp
-            roms/generated/familiegeheugen-4.afp
-            roms/generated/Maintenance-2.afp
+            roms/generated/0-contents.afp
+            roms/generated/1-BASICNL1.1.afp
+            roms/generated/2-Forth.afp
+            roms/generated/3-UCSD-Pascal.afp
+            roms/generated/4-assembler-5.9.afp
+            roms/generated/5-JWSBasic.afp
+            roms/generated/6-familiegeheugen-4.afp
+            roms/generated/7-Maintenance-2.afp
