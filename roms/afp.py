@@ -22,8 +22,7 @@ with open(inname, 'br') as file:
 
 print(f"write '{outname}'")
 lines=[]
-lines.append("@echo disable\n")
-lines.append(f"// suggest line delay 10ms\n")
+lines.append(f"// suggest a line delay of 10ms (erase needs 100ms)\n")
 lines.append(f"// source {inname}\n")
 lines.append(f"// target {outname}\n")
 lines.append(f"// date   {datetime.now()}\n")
@@ -56,8 +55,7 @@ s += "*\n"
 lines.append( s )
 lines.append(f"write stats\n")
 lines.append("echo faults\n")
-lines.append("echo enable\n")
-with open(outname, 'w') as file:
+with open(outname, 'w', newline='\n') as file:
   file.writelines( lines)
 
 sys.exit(0)
