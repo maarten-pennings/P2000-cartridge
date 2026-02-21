@@ -43,7 +43,7 @@ void drv_init() {
   PORTC = 0b00000000;
   DDRC  = 0b00111000;  // address lines output
 
-  Serial.println( F("drv  : init") );
+  Serial.print( F("drv  : init\n") );
   // flash and shift invariant
 }
 
@@ -151,8 +151,10 @@ bool drv_io_write(uint32_t addr, uint8_t io) {
   SET_OEN(LOW);
     uint8_t time=0; while( (MSB(drv_io_get())!=MSB(io)) && (time<100) ){ time++; delayMicroseconds(1); } // time ~20us
   SET_OEN(HIGH);
-  //Serial.print("byte write "); Serial.print(time); Serial.println("us");
+  //Serial.print("byte write "); Serial.print(time); Serial.print("us\n");
   SET_LED(LOW);
+  // Put other signal out, so that a verifying read (with no flash chip present) will not succeed
+  drv_io_set(~io);
   return time<50;
   // flash and shift invariant (WEN pulsed, OEN restored)
 }
@@ -176,7 +178,7 @@ bool drv_erase_sector(uint32_t addr) {
   SET_OEN(LOW);
     uint16_t time=0; while( (MSB(drv_io_get())!=128) && (time<2000) ) { time++; delayMicroseconds(100); } // time ~200us
   SET_OEN(HIGH);
-  //Serial.print("sector erase "); Serial.print(time); Serial.println("00us");
+  //Serial.print("sector erase "); Serial.print(time); Serial.print("00us\n");
   SET_LED(LOW);
   return time<1000;
   // flash and shift invariant (WEN pulsed, OEN restored)
@@ -200,7 +202,7 @@ bool drv_erase_chip() {
   SET_OEN(LOW);
     uint16_t time=0; while( (MSB(drv_io_get())!=128) && (time<2000) ) { time++; delayMicroseconds(100); } // time ~700us
   SET_OEN(HIGH);
-  //Serial.print("chip erase "); Serial.print(time); Serial.println("00us");
+  //Serial.print("chip erase "); Serial.print(time); Serial.print("00us\n");
   SET_LED(LOW);
   return time<2000;
   // flash and shift invariant (WEN pulsed, OEN restored)

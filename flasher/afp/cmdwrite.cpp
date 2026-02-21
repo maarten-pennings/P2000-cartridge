@@ -20,15 +20,15 @@ void cmdwrite_stream(int argc, char * argv[] ) {
     }
     // Process <data> byte
     uint16_t data1;
-    if( !cmd_parse_hex(argv[i],&data1) || data1>=0x100) { Serial.println(F("ERROR: <data> must be hex 00..FF (use * to exit)")); goto exit; }
-    if( cmdwrite_addr >= cmdflash_chipsize() ) { Serial.println( F("ERROR: <addr> greater than chip size") ); cmd_set_streamfunc(0); goto exit; }
+    if( !cmd_parse_hex(argv[i],&data1) || data1>=0x100) { Serial.print(F("ERROR: <data> must be hex 00..FF (use * to exit)\n")); goto exit; }
+    if( cmdwrite_addr >= cmdflash_chipsize() ) { Serial.print( F("ERROR: <addr> greater than chip size\n") ); cmd_set_streamfunc(0); goto exit; }
     bool ok= drv_io_write(cmdwrite_addr, data1 );
     if( ok ) {
       uint8_t data2;
       drv_io_read(cmdwrite_addr, &data2, 1);
-      if( data1 != data2 ) cmdwrite_stats_errorcount++;
+      if( data1 != data2 ) cmdwrite_stats_errorcount++; // written data does not match read data
     } else {
-      cmdwrite_stats_errorcount++;
+      cmdwrite_stats_errorcount++; // write signalled fail (timeout of write)
     }
     cmdwrite_stats_writecount++;
     cmdwrite_addr++;
@@ -41,23 +41,23 @@ exit:
 
 void cmdwrite_main(int argc, char * argv[] ) {
   if( argc==1 ) {
-    Serial.println(F("ERROR: expected 'stat' or <addr>"));
+    Serial.print(F("ERROR: expected 'stat' or <addr>\n"));
     return;
   }
 
   if( cmd_isprefix(PSTR("stats"),argv[1]) ) {
     if( argc==2 )  {
-      cmd_printf("bytes written %lu\r\n",cmdwrite_stats_writecount);
-      cmd_printf("write errors  %lu\r\n",cmdwrite_stats_errorcount);
-      cmd_printf("elapsed time  %lu ms\r\n",millis()-cmdwrite_stats_timems);
+      cmd_printf("bytes written %lu\n",cmdwrite_stats_writecount);
+      cmd_printf("write errors  %lu\n",cmdwrite_stats_errorcount);
+      cmd_printf("elapsed time  %lu ms\n",millis()-cmdwrite_stats_timems);
       return;
     }
-    if( argc>3 ) { Serial.println(F("ERROR: too many args")); return; }
-    if( ! cmd_isprefix(PSTR("clear"),argv[2]) ) { Serial.println(F("ERROR: expected 'clear'")); return; }
+    if( argc>3 ) { Serial.print(F("ERROR: too many args\n")); return; }
+    if( ! cmd_isprefix(PSTR("clear"),argv[2]) ) { Serial.print(F("ERROR: expected 'clear'\n")); return; }
     cmdwrite_stats_writecount= 0;
     cmdwrite_stats_errorcount= 0;
     cmdwrite_stats_timems= millis();
-    if( argv[0][0]!='@' ) Serial.println("cleared");
+    if( argv[0][0]!='@' ) Serial.print("cleared\n");
     return;
   }
 
@@ -67,9 +67,9 @@ void cmdwrite_main(int argc, char * argv[] ) {
   if(      *s=='S' || *s=='s' ) { s++; factor= cmdflash_sectorsize(); }
   else if( *s=='R' || *s=='r' ) { s++; factor= cmdflash_romsize(); }
 
-  if( argc==2 ) { Serial.println(F("ERROR: expected <data> or '*'")); return; }
+  if( argc==2 ) { Serial.print(F("ERROR: expected <data> or '*'\n")); return; }
   uint32_t addr;
-  if( ! cmd_parse_hex32(s,&addr) ) { Serial.println( F("ERROR: <addr> must be hex") ); return; }
+  if( ! cmd_parse_hex32(s,&addr) ) { Serial.print( F("ERROR: <addr> must be hex\n") ); return; }
   addr *= factor;
 
   // Write data('s)

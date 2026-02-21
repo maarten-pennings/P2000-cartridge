@@ -14,7 +14,7 @@ static bool     cmdread_verbose;
 static void cmdread_show(uint32_t num) {
   // clip current address to flash size
   if( cmdread_addr >= cmdflash_chipsize() ) {
-    Serial.println(F("ERROR: at end of flash"));
+    Serial.print(F("ERROR: at end of flash\n"));
     return;
   }
   // clip num bytes to flash size
@@ -31,7 +31,7 @@ static void cmdread_show(uint32_t num) {
       if( cmdread_addr % 0x100 == 0 ) sep=' ';
       if( cmdread_addr % cmdflash_sectorsize() == 0 ) sep='-';
       if( cmdread_addr % cmdflash_romsize() == 0 ) sep='=';
-      if( next && sep ) { for(byte i=0; i<63; i++) Serial.print(sep); Serial.println(); }
+      if( next && sep ) { for(byte i=0; i<63; i++) Serial.print(sep); Serial.print("\n"); }
       next= 1;
     }
 
@@ -60,7 +60,7 @@ static void cmdread_show(uint32_t num) {
       if( i==skip ) Serial.print(" ");
       cmd_printf(" %02x",io[i]);
     }
-    Serial.println();
+    Serial.print("\n");
 
     num-= size;
     cmdread_addr+= size;
@@ -80,16 +80,16 @@ static void cmdread_main(int argc, char * argv[] ) {
   if(      *s=='S' || *s=='s' ) { s++; factor= cmdflash_sectorsize(); }
   else if( *s=='R' || *s=='r' ) { s++; factor= cmdflash_romsize(); }
   uint32_t addr;
-  if( ! cmd_parse_hex32(s,&addr) ) { Serial.println( F("ERROR: <addr> must be hex") ); return; }
+  if( ! cmd_parse_hex32(s,&addr) ) { Serial.print( F("ERROR: <addr> must be hex\n") ); return; }
   addr *= factor;
-  if( addr >= cmdflash_chipsize() ) { Serial.println( F("ERROR: <addr> greater than chip size") ); return; }
+  if( addr >= cmdflash_chipsize() ) { Serial.print( F("ERROR: <addr> greater than chip size\n") ); return; }
 
   uint32_t num;
   if( argc==2 ) {
     num = 0x100;
   } else {
     if( ! cmd_parse_hex32(argv[2],&num) ) {
-      Serial.println( F("ERROR: <num> must be hex") );
+      Serial.print( F("ERROR: <num> must be hex\n") );
       return;
     }
   }

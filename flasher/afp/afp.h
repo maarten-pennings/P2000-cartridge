@@ -4,7 +4,8 @@
 
 
 // Application version (and its history)
-#define AFP_VERSION "0.8" // see also AFP_DATE
+#define AFP_VERSION "1.0" // see also AFP_DATE
+// 20260221  1.0  Removed all println: all lines now end in \n (io \r\n)
 // 20260221  0.9  Fixed help 'flash' command
 // 20260218  0.8  Fixed bug in elapsed time
 // 20260218  0.7  Added 'write' command, unified ERROR msgs, added more @-support
@@ -17,7 +18,7 @@
 
 
 // Application date
-#define AFP_DATE      "2026 feb 18"
+#define AFP_DATE      "2026 feb 21"
 
 
 // Application long name

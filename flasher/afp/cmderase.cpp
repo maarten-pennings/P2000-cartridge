@@ -30,7 +30,7 @@ static void cmderase_show() {
   uint8_t rom2 = cmdflash_chipsize()/cmdflash_romsize();
   uint8_t empty=0;
   uint8_t inuse=0;
-  Serial.println( F("rom sectors addresses    state-of-sectors:empty/inuse") );
+  Serial.print( F("rom sectors addresses    state-of-sectors:empty/inuse\n") );
   for( uint8_t rom1=0; rom1<rom2; rom1++ ) {
     uint8_t sector1=rom1*cmdflash_romsize()/cmdflash_sectorsize();
     uint8_t sector2=(rom1+1)*cmdflash_romsize()/cmdflash_sectorsize();
@@ -38,9 +38,9 @@ static void cmderase_show() {
     for( uint8_t sector=sector1; sector<sector2; sector++ ) {
       if( cmderase_isempty(sector) ) { empty++; Serial.print(F("    -  ")); } else { inuse++; Serial.print(F("  inuse")); }
     }
-    Serial.println();
+    Serial.print("\n");
   }
-  Serial.print(F("clusters: empty ")); Serial.print(empty); Serial.print(F(" inuse ")); Serial.println(inuse);
+  Serial.print(F("clusters: empty ")); Serial.print(empty); Serial.print(F(" inuse ")); Serial.print(inuse); Serial.print("\n");
 }
 
 
@@ -52,19 +52,19 @@ static void cmderase_main(int argc, char * argv[] ) {
   }
 
   if( argc>2 ) {
-    Serial.println( F("ERROR: too many args") );
+    Serial.print( F("ERROR: too many args\n") );
     return;
   }
 
   if( strcmp(argv[0],"erase")!=0 ) {
-    Serial.println( F("ERROR: 'erase' command must be spelled in full to prevent accidental erase"));
+    Serial.print( F("ERROR: 'erase' command must be spelled in full to prevent accidental erase\n"));
     return;
   }
 
   if( cmd_isprefix(PSTR("all"),argv[1]) ) {
     bool ok= drv_erase_chip();
-    if( !ok ) { Serial.println(f("chip erase failed")); return; }
-    if( argv[0][0]!='@') Serial.println( F("chip erased") );
+    if( !ok ) { Serial.print(F("chip erase failed\n")); return; }
+    if( argv[0][0]!='@') Serial.print( F("chip erased\n") );
     return;
   }
 
@@ -73,18 +73,18 @@ static void cmderase_main(int argc, char * argv[] ) {
   uint8_t numsectors=0;
   if(      *s=='S' || *s=='s' ) { s++; numsectors=1; }
   else if( *s=='R' || *s=='r' ) { s++; numsectors=cmdflash_romsize()/cmdflash_sectorsize(); }
-  if( numsectors==0 ) { Serial.println( F("ERROR: <addr> must start with S or R") ); return; }
+  if( numsectors==0 ) { Serial.print( F("ERROR: <addr> must start with S or R\n") ); return; }
 
   // Compute begin and end sector number
   uint32_t sector1;
   if( ! cmd_parse_hex32(s,&sector1) ) {
-    Serial.println( F("ERROR: <addr> must be hex") );
+    Serial.print( F("ERROR: <addr> must be hex\n") );
     return;
   }
   sector1 *= numsectors;
   uint32_t sector2= sector1+numsectors;
   if( sector2 > cmdflash_chipsize()/cmdflash_sectorsize() ) {
-    Serial.println( F("ERROR: <addr> greater than chip size") );
+    Serial.print( F("ERROR: <addr> greater than chip size\n") );
     return;
   }
 
@@ -93,10 +93,10 @@ static void cmderase_main(int argc, char * argv[] ) {
     uint32_t sector_addr= sector * cmdflash_sectorsize();
     uint32_t rom_addr= sector_addr  / cmdflash_romsize();
     // print address(es)
-    cmd_printf( "R%02lx S%02x:", rom_addr, sector );
+    cmd_printf( "R%02lx S%02x: ", rom_addr, sector );
     bool ok= drv_erase_sector(sector_addr);
-    if( !ok ) { Serial.println(f("fail")); return; }
-    if( argv[0][0]!='@') Serial.println( F("erased") );
+    if( !ok ) { Serial.print( F("fail\n")); return; }
+    if( argv[0][0]!='@') Serial.print( F("erased\n") );
   }
 }
 

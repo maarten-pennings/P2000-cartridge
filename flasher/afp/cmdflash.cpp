@@ -34,7 +34,7 @@ static void cmdflash_show_chip(bool verbose) {
   if( verbose ) Serial.print( F(" sectors) (") );
   if( verbose ) Serial.print( cmdflash_chipsize_k/cmdflash_romsize_k );
   if( verbose ) Serial.print( F(" roms)") );
-  Serial.println();
+  Serial.print("\n");
 }
 
 
@@ -45,13 +45,13 @@ static void cmdflash_show_rom(bool verbose) {
   if( verbose ) Serial.print( F(" (") );
   if( verbose ) Serial.print(  cmdflash_romsize_k/cmdflash_sectorsize_k);
   if( verbose ) Serial.print( F(" sectors)") );
-  Serial.println();
+  Serial.print("\n");
 }
 
 
 static void cmdflash_rom_patch() {
   if( cmdflash_romsize_k > cmdflash_chipsize_k ) {
-    Serial.println( F("WARNING: rom size reduced") );
+    Serial.print( F("WARNING: rom size reduced\n") );
     cmdflash_romsize_k = cmdflash_chipsize_k;
   }
 }
@@ -64,11 +64,11 @@ void cmdflash_auto( bool verbose ) {
   // Print the two IDs
   if( verbose ) { Serial.print( F("manid ") ); Serial.print(manid,HEX); Serial.print( F(": ") ); }
   if( manid==DRV_MANID_MICROCHIP ) Serial.print( F("Microchip/SST") );
-  if( verbose ) { Serial.println(); Serial.print( F("devid ") ); Serial.print(devid,HEX); Serial.print( F(": ") ); }
+  if( verbose ) { Serial.print("\n"); Serial.print( F("devid ") ); Serial.print(devid,HEX); Serial.print( F(": ") ); }
   if( devid==DRV_DEVID_39SF010 ) { Serial.print( F("39SF010 (1 Mbit = 128 kbyte)") ); cmdflash_chipsize_k=128; }
   if( devid==DRV_DEVID_39SF020 ) { Serial.print( F("39SF020 (2 Mbit = 256 kbyte)") ); cmdflash_chipsize_k=256; }
   if( devid==DRV_DEVID_39SF040 ) { Serial.print( F("39SF040 (4 Mbit = 512 kbyte)") ); cmdflash_chipsize_k=512; }
-  Serial.println();
+  Serial.print("\n");
 }
 
 
@@ -81,7 +81,7 @@ static void cmdflash_main(int argc, char * argv[] ) {
     if( argc==2 ) {
       cmdflash_show_chip(argv[0][0]!='@');
     } else if( argc>3 ) {
-      Serial.println( F("ERROR: too many args") );
+      Serial.print( F("ERROR: too many args\n") );
       return;
     } else {
       if( cmd_isprefix(PSTR("auto"),argv[2]) ) {
@@ -93,7 +93,7 @@ static void cmdflash_main(int argc, char * argv[] ) {
       } else if( cmd_isprefix(PSTR("512"),argv[2]) ) {
         cmdflash_chipsize_k=512;
       } else {
-        Serial.println( F("ERROR: unknown size (128, 256, 512)") );
+        Serial.print( F("ERROR: unknown size (128, 256, 512)\n") );
         return;
       }
       cmdflash_rom_patch();
@@ -103,32 +103,32 @@ static void cmdflash_main(int argc, char * argv[] ) {
     if( argc==2 ) {
       cmdflash_show_rom(argv[0][0]!='@');
     } else if( argc>3 ) {
-      Serial.println( F("ERROR: too many args") );
+      Serial.print( F("ERROR: too many args\n") );
       return;
     } else {
       int size;
       bool ok= cmd_parse_dec(argv[2],&size) ;
       if( !ok || size==0 ) {
-        Serial.println( F("ERROR: illegal size") );
+        Serial.print( F("ERROR: illegal size\n") );
         return;
       }
       if( size%cmdflash_sectorsize_k!=0 ) {
         Serial.print( F("ERROR: rom size must be multiple of sector size (") );
         Serial.print(cmdflash_sectorsize_k);
-        Serial.println( F(" kbyte)") );
+        Serial.print( F(" kbyte)\n") );
         return;
       }
       if( cmdflash_chipsize_k%size!=0 ) {
         Serial.print( F("ERROR: rom size must be divider of flash size (") );
         Serial.print(cmdflash_chipsize_k);
-        Serial.println( F(" kbyte)") );
+        Serial.print( F(" kbyte)\n") );
         return;
       }
       cmdflash_romsize_k= size;
       if( argv[0][0]!='@' ) cmdflash_show_rom(argv[0][0]!='@');
     }
   } else {
-    Serial.println( F("ERROR: need subcommand 'chip' or 'rom'") );
+    Serial.print( F("ERROR: need subcommand 'chip' or 'rom'\n") );
   }
 }
 

@@ -35,13 +35,13 @@ static uint32_t cmdinfo_mega328_Vcc(void) {
 // The handler for the "info" command
 static void cmdinfo_main(int argc, char * argv[] ) {
   (void)argc; // unused
-  if( argv[0][0]!='@' ) { Serial.print(F("name   : ")); Serial.println(F(AFP_LONGNAME)); }
-  Serial.print(F("version: ")); Serial.println(F(AFP_VERSION));
-  if( argv[0][0]!='@' ) { Serial.print(F("author : ")); Serial.println(F(AFP_AUTHOR)); }
-  if( argv[0][0]!='@' ) { Serial.print(F("date   : ")); Serial.println(F(AFP_DATE)); }
-  if( argv[0][0]!='@' ) { Serial.print(F("voltage: ")); Serial.print( cmdinfo_mega328_Vcc() ); Serial.println(F(" mV")); }
-  if( argv[0][0]!='@' ) { Serial.print(F("cpufreq: ")); Serial.print( F_CPU ); Serial.println(F(" Hz")); }
-  if( argv[0][0]!='@' ) { Serial.print(F("uartbuf: ")); Serial.print( SERIAL_RX_BUFFER_SIZE ); Serial.println(F(" bytes")); }
+  if( argv[0][0]!='@' ) { Serial.print(F("name   : ")); Serial.print(F(AFP_LONGNAME)); Serial.print("\n"); }
+  Serial.print(F("version: ")); Serial.print(F(AFP_VERSION)); Serial.print("\n");
+  if( argv[0][0]!='@' ) { Serial.print(F("author : ")); Serial.print(F(AFP_AUTHOR)); Serial.print("\n"); }
+  if( argv[0][0]!='@' ) { Serial.print(F("date   : ")); Serial.print(F(AFP_DATE)); Serial.print("\n"); }
+  if( argv[0][0]!='@' ) { Serial.print(F("voltage: ")); Serial.print( cmdinfo_mega328_Vcc() ); Serial.print(F(" mV\n")); }
+  if( argv[0][0]!='@' ) { Serial.print(F("cpufreq: ")); Serial.print( F_CPU ); Serial.print(F(" Hz\n")); }
+  if( argv[0][0]!='@' ) { Serial.print(F("uartbuf: ")); Serial.print( SERIAL_RX_BUFFER_SIZE ); Serial.print(F(" bytes\n")); }
 }
 
 
