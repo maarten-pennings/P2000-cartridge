@@ -14,7 +14,9 @@ as EasyEda [json](pcb/P2000Cartridge-schem.json) source.
 ## Layout
 
 Also the PCB layout I did in [EasyEda](https://easyeda.com).
-The layout is available as two pdfs [front](pcb/P2000Cartridge-pcb-front.pdf) and [back](pcb/P2000Cartridge-pcb-back.pdf).
+The layout is available as two pdfs [front](pcb/P2000Cartridge-pcb-front.pdf) and [back](pcb/P2000Cartridge-pcb-back.pdf),
+and also as EasyEda [json](pcb/P2000Cartridge-pcb.json) source.
+
 
 I double checked the socket since I don't have it yet physically.
 Warning, the socket diagram is the pin-out from the front side of the PCB ("bottom view").
