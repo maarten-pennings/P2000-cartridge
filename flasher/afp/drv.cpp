@@ -24,22 +24,23 @@
 void drv_init() {
   // This driver uses PORTX, DDRX, and PINX instead of digitalWrite() etc because of the speed.
 
-  //  7   6   5   4   3   2   1   0  (Arduino pin nums, Dxx)
+  // D7  D6  D5  D4  D3  D2  D1  D0  (Arduino pin num)
   // PD7 PD6 PD5 PD4 PD3 PD2 PD1 PD0 (ATMEGA328 port/pin)
   // IO7 IO6 IO5 IO4 IO3  -   -   -  (PCB: flash data pins)
   PORTD = 0b00000000;
   DDRD  = 0b00000000;
 
-  //  -   -   13  12  11  10  9   8  (Arduino pin nums, Dxx)
-  // PB7 PB6 PB5 PB4 PB3 PB2 PB1 PB0 (ATMEGA328 port/pin)
+  //  -   -  D13 D12 D11 D10 D9  D8  (Arduino pin num)
+  //  -   -  PB5 PB4 PB3 PB2 PB1 PB0 (ATMEGA328 port/pin)
   //  -   -  LED LAT CLK DAT WEN OEN (PCB: control)
   PORTB = 0b00000011; // WEN=HIGH, OEN=HIGH
   DDRB  = 0b00111111; // bits to outputs (except unused ones)
   // flash and shift invariant established (WEN=1, OEN=1, CLK=0, LAT=0)
 
-  //  21  20  19  18  17  16  15  14  (Arduino pin nums, Dxx)
+  // A7  A6  A5  A4  A3  A2  A1  A0  (Arduino pin num alt)
+  //  -   -  D19 D18 D17 D16 D15 D14 (Arduino pin num)
   //  -   -  PC5 PC4 PC3 PC2 PC1 PC0 (ATMEGA328 port/pin)
-  //  -   -  A18 A17 A16 IO2 IO1 IO0  (PCB: flash address and data pins)
+  //  -   -  A18 A17 A16 IO2 IO1 IO0 (PCB: flash address and data pins)
   PORTC = 0b00000000;
   DDRC  = 0b00111000;  // address lines output
 
@@ -66,7 +67,7 @@ void drv_init() {
 // Before a read or write operation, the address pins of the flash chip must be set.
 // These pins are spread over 3 pins in port C (A18..A16) and 16 via external shift registers (A15..A0).
 // This function sets all 19 address lines (512k range).
-// The external shift register is wired as LSB first (normally MSB first is used on comms lines).
+// The external shift register is wired as LSB first.
 void drv_addr_set(uint32_t addr) {
   for( uint8_t i=0; i<16; i++) {
     bitWrite(PORTB, 2, addr & 1);
