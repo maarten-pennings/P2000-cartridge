@@ -36,7 +36,7 @@ Design it, manufacture it, test track connections, assemble it, and test functio
 Find all design files (schematics, layout, gerber) in the [pcb](pcb) directory.
 
 
-## Which ROMs?
+## Selecting ROMs
 
 Which ROMs to put on the multi-ROM cartridge?
 The chosen flash chip 39SF010 has room for 8.
@@ -65,7 +65,7 @@ The ones listed here are ["backed up"](roms/stockroms) in this repo.
 ### Own cartridge: Contents
 
 The proposal is that the first ROM is a sort of table of contents.
-I made the [Contents](roms) ROM myself. 
+I made the [Contents](roms/myroms) ROM myself. 
 It is written in assembler, but rather simple: just an LDIR to copy a screen image to the frame buffer.
 
 ![Screenshot Collection](images/collection.png)
@@ -73,9 +73,19 @@ It is written in assembler, but rather simple: just an LDIR to copy a screen ima
 
 ### Makefile
 
-The [roms](roms) directory contains a sub directory with the [stockroms](roms/stockroms) and a sub directory
-with [myroms](roms/myroms) (the Contents rom). It also contains a [Makefile](roms/Makefile) to compile 
-myroms to a `.bin` and convert all `.bin` files (from myroms and from stockroms) to flash scripts (`.afp`).
+The [roms](roms) directory contains a sub directory with the 
+[stockroms](roms/stockroms) and a sub directory with [myroms](roms/myroms) 
+(the Contents rom). It also contains a [Makefile](roms/Makefile) to compile 
+myroms to a `.bin` and convert all `.bin` files (from myroms and from 
+stockroms) to flash scripts (`.afp`) - see next section.
+
+
+## Sub-project AFP 
+
+We need some tool to flash the `.bin` files to the 39SF0x0 chip.
+I don't have one, I could buy one, borrow one or make one.
+I went for the latter option an made the "Arduino Flash Programmer".
+This subject is described in the [afp](afp) directory.
 
 
 ## Cost 

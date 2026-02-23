@@ -21,7 +21,7 @@ and also as EasyEda [json](pcb/P2000Cartridge-pcb.json) source.
 I double checked the socket since I don't have it yet physically.
 Warning, the socket diagram is the pin-out from the front side of the PCB ("bottom view").
 
-![socket](pcb/PLCC32-pinout.png) 
+![socket](images/PLCC32-pinout.png) 
 
 
 ## Gerber
