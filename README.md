@@ -28,12 +28,14 @@ I did some [analysis](analysis.md) coming to the following conclusions:
 
 ## Design
 
-With the analysis phase done, let's make the PCB.
-Design it, manufacture it, test track connections, assemble it, and test functionality.
+With the analysis phase done, let's make the [PCB](pcb.md).
+Design it, manufacture it, test it (tracks), assemble it, and test functionality.
  
 ![PCB assembled](images/pcb-assembled.jpg)
  
 Find all design files (schematics, layout, gerber) in the [pcb](pcb) directory.
+.
+
 
 
 ## Selecting ROMs
