@@ -33,8 +33,8 @@ class AFP:
     def log(self,msg,tag="!"):
         """Add message 'msg' to the log, tagging the message with character 'tag'."""
         # Prepends time stamp and tag
-        # Make NLs visible by rendering them as "«"
-        rep= f"«\n{'':8} {tag} " # Spaces are for indent (size of time)
+        # Make NLs visible by rendering them as "~"
+        rep= f"~\n{'':8} {tag} " # Spaces are for indent (size of time)
         msg= msg.replace("\n",rep)
         if msg.endswith(rep): msg= msg[0:len(msg)-len(rep)+1]
         self.logfile.write( f"{time.time()-self.logtime0:8.3f} {tag} {msg}\n" )
