@@ -73,10 +73,10 @@ There are some Python scripts to process bin files.
 
 To compute the checksum for any P2000 ROM image, we have written a python program [`patch`](patch.py).
 This reads a `.bin` file - for example ours as produced by the assembler - computes the checksum, and 
-overwrites the associated bytes in the header.
+overwrites the checksum bytes in the header.
 
 The `patch` script assumes the whole file should be part of the checksum. We have noticed that 
-commercial ROMs in the field sometimes specify a shorter ROM size (bytes at 0x1001/0x1002).
+existing commercial ROMs sometimes specify a shorter ROM size (bytes at 0x1001/0x1002).
 It is even possible to use a size of 0 (and set the checksum at 0).
 
 
@@ -95,7 +95,7 @@ included in the checksum.
 
 > The [ROM](https://ww1.microchip.com/downloads/aemDocuments/documents/MPD/ProductDocuments/DataSheets/SST39SF010A-SST39SF020A-SST39SF040-Data-Sheet-DS20005022.pdf)
 > we have chosen can be erased per sector of 4 k bytes. One P2000 ROM exactly matches 4 sectors.
-> Furthermore, our [flasher](../flasher) supports erasing individual sectors and it suppoprts
+> Furthermore, our [flasher](../flasher) supports erasing individual sectors and it supports
 > writing individual sectors (bytes actually).
 > As a result, when using our proprietary flasher, there is no need to use `pad`.
 
@@ -112,6 +112,19 @@ commands for the AFP tool. The generated `.afp` file contains one `erase` comman
 the binary is mapped to, and one `write` command with (up to) 16 k bytes of data for that area.
 
 The `.afp` file can be sent via the virtual COM port in the AFP tool.
+
+Here is the shortened `contents.afp` file; `R0` denotes an address, the `R` stands for
+"ROM" and means that the "units" is 4 k pages. The actual address is 0×4k=0x00000.
+For erase is also implies a size of 16 k.
+
+```
+erase R0
+
+write R0 *
+5e 15 08 6a 9f 4d 50 45  4e 32 30 32 36 00 00 00 
+...
+20 20 20 20 20 20 20 20  20 20 *
+```
 
 
 ### Burn
