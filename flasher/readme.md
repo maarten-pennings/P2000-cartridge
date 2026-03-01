@@ -6,7 +6,7 @@ We use an Arduino Nano with two shift registers.
 
 ## Prototype
 
-The concept
+The concept inspired by [slu4coder's GitHub](https://github.com/slu4coder/SST39SF010-FLASH-Programmer).
 
 ![AFP schematics](images/flasher.pcb.drawio.png)
 
