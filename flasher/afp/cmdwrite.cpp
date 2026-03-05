@@ -88,7 +88,7 @@ static const char cmdwrite_longhelp[] PROGMEM =
   "- <data> may be *, this toggles streaming mode\n"
   "- when <addr> has form <hex> the address is <hex>\n"
   "- when <addr> has form s<hex> (sector) the address is <hex>*0x1000\n"
-  "- when <addr> has form r<hex> (rom) the address is <hex>*<group>*0x1000\n"
+  "- when <addr> has form r<hex> (rom) the address is <hex>*<rom>*0x1000\n"
   "NOTE:\n"
   "- <addr>, <data>, and <hex> are in hex\n"
   "- a sector (16 pages, 4096 bytes) is the unit of erase of the flash chip\n"
