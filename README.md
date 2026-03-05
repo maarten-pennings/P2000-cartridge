@@ -89,6 +89,13 @@ I don't have one, I could buy one, borrow one or make one.
 I went for the latter option an made the "Arduino Flash Programmer".
 This subject is described in the [flasher](flasher) directory.
 
+![AFP](flasher/images/pcb-running.jpg)
+
+
+## Casing
+
+... todo ...
+
 
 ## Cost 
 
