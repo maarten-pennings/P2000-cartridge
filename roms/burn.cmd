@@ -1,4 +1,10 @@
-SET COMPORT=COM9
+@ECHO OFF
+IF "%1" == "" (
+  ECHO SYNTAX burn ^<COMPORT^>
+  EXIT /b
+)
+SET COMPORT=%1
+
 python burn.py    generated\0-contents.afp       %COMPORT%  generated\0-contents.log
 python burn.py    generated\1-BASICNL1.1.afp     %COMPORT%  generated\1-BASICNL1.1.log
 python burn.py    generated\2-Forth.afp          %COMPORT%  generated\2-Forth.log
