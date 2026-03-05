@@ -83,7 +83,7 @@ I ordered 5 PCBs (minimum order quantity) with slow shipping.
   | PCBs               |        5 |   €1.69  |                                 |
   | Shipping           |        1 |   €1.27  |                                 |
   | Import Taxes (21%) |        1 |   €0.63  |                                 |
-  | **Total**          |          | **€3.59**| [🔗](flasher/pcb/order.png")    |
+  | **Total**          |          | **€3.59**| [🔗](flasher/pcb/order.png)     |
 
 
 ## Casing 
