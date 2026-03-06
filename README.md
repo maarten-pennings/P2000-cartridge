@@ -82,12 +82,12 @@ myroms to a `.bin` and convert all `.bin` files (from myroms and from
 stockroms) to flash scripts (`.afp`) - see next section.
 
 
-## Sub-project AFP 
+## Sub-project: Flash Programmer
 
 We need some tool to flash the `.bin` files to the 39SF0x0 chip.
 I don't have one, I could buy one, borrow one or make one.
 I went for the latter option an made the "Arduino Flash Programmer".
-This subject is described in the [flasher](flasher) directory.
+This topic is described in the [flasher](flasher) directory.
 
 ![AFP](flasher/images/pcb-running.jpg)
 
