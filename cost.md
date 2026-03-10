@@ -94,17 +94,19 @@ I ordered 5 PCBs (minimum order quantity) with slow shipping.
 
 I ordered 2 casings (top and bottom white and top and bottom black) with slow shipping.
 
-![Components](flasher/images/pcb-soldered.jpg)
+![Casing](images/casing-render.png)
 
-  | Description        | Quantity |     Cost | Link                            |
-  |:-------------------|---------:|---------:|:--------------------------------|
-  | Top black          |        1 |   €3.38  |                                 |
-  | Bottom black       |        1 |   €4.14  |                                 |
-  | Top white          |        1 |   €1.82  |                                 |
-  | Bottom white       |        1 |   €2.22  |                                 |
-  | Shipping           |        1 |   €8.78  |                                 |
-  | Import Taxes (21%) |        1 |   €4.27  |                                 |
-  | **Total**          |          |**€24.61**| [🔗](images/invoice3Dprint.png) |
+  | Description        | Quantity |      Sub |     Cost | Link                            |
+  |:-------------------|---------:|---------:|---------:|:--------------------------------|
+  | Top black          |        1 |   €3.38  |          |                                 |
+  | Bottom black       |        1 |   €4.14  |          |                                 |
+  | **Complete Black** |        1 |          |   €7.52  |
+  | Top white          |        1 |   €1.82  |          |                                 |
+  | Bottom white       |        1 |   €2.22  |          |                                 |
+  | **Complete White** |        1 |          |   €4.04  |
+  | Shipping           |        1 |          |   €8.78  |                                 |
+  | Import Taxes (21%) |        1 |          |   €4.27  |                                 |
+  | **Total**          |          |          |**€24.61**| [🔗](images/invoice3Dprint.png) |
 
 
 
