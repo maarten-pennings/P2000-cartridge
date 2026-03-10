@@ -27,14 +27,16 @@ I ordered components for 10 cartridges.
   | Description       | Quantity  |     Cost | Link                                                        |
   |:------------------|----------:|---------:|:-----------------------------------------------------------:|
   | Resistor 10kΩ     | 50+  5×10 |    €1.19 | [🔗](https://nl.aliexpress.com/item/32952657927.html)       |
-  | Capacitor 100nF   | 80+  2×10 |    €1.79 | [🔗](https://nl.aliexpress.com/item/1005010370389462.html)  |
   | PLCC32-DIP socket |        10 |    €3.12 | [🔗](https://nl.aliexpress.com/item/33056827347.html)       |
-  | DIPswitch 5 wide  |        10 |    €2.16 | [🔗](https://nl.aliexpress.com/item/4001127324718.html)     |
+  | DIPswitch 3 wide  | 10+     0 |    €2.14 | [🔗](https://nl.aliexpress.com/item/4001127324718.html)     |
   | PLCC32 to DIP32   |         1 |    €1.62 | [🔗](https://nl.aliexpress.com/item/1005006221329883.html)  |
   | SST39SF010A (mem) |        10 |    €6.39 | [🔗](https://nl.aliexpress.com/item/1005008535405486.html)  |
   | SN74LS00N (4×NAND)|        10 |    €2.43 | [🔗](https://nl.aliexpress.com/item/1005002328900896.html)  |
-  | Shipping          |         1 |    €0.00 |                                                             |
-  | **Total**         |           |**€18.70**| [🔗](images/invoice-aliexpress.png)                         |
+  | Shipping 1st order|         1 |    €0.00 |                                                             |
+  | DIPswitch 5 wide  |        10 |    €2.16 | [🔗](https://nl.aliexpress.com/item/4001127324718.html)     |
+  | Capacitor 100nF   | 80+  2×10 |    €1.79 | [🔗](https://nl.aliexpress.com/item/1005010370389462.html)  |
+  | Shipping 2n order |         1 |    €0.00 |                                                             |
+  | **Total**         |           |**€20.84**| [🔗](images/invoice-aliexpress.png)                         |
  
 
 ### Cartridge PCB
@@ -88,18 +90,34 @@ I ordered 5 PCBs (minimum order quantity) with slow shipping.
 
 ## Casing 
 
-tbd
+
+
+I ordered 2 casings (top and bottom white and top and bottom black) with slow shipping.
+
+![Components](flasher/images/pcb-soldered.jpg)
+
+  | Description        | Quantity |     Cost | Link                            |
+  |:-------------------|---------:|---------:|:--------------------------------|
+  | Top black          |        1 |   €3.38  |                                 |
+  | Bottom black       |        1 |   €4.14  |                                 |
+  | Top white          |        1 |   €1.82  |                                 |
+  | Bottom white       |        1 |   €2.22  |                                 |
+  | Shipping           |        1 |   €8.78  |                                 |
+  | Import Taxes (21%) |        1 |   €4.27  |                                 |
+  | **Total**          |          |**€24.61**| [🔗](images/invoice3Dprint.png) |
+
 
 
 ## Total 
 
   | Description          | Quantity |       Cost |
   |:---------------------|---------:|-----------:|
-  | Cartridge components |       10 |    €18.70  |
+  | Cartridge components |       10 |    €20.84  |
   | Cartridge PCBs       |       10 |    €16.70  |
+  | Cartridge casing     |        2 |    €24.61  |
   | AFP components       |        2 |    €10.17  |
   | AFP PCBs             |        2 |     €3.59  |
-  | **Total**            |          |  **€49.16**|
+  | **Total**            |          |  **€75.91**|
 
 
 (end)

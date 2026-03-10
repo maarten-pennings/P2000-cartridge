@@ -2,7 +2,8 @@
 
 Making a cartridge for the Philips P2000T.
 
-![PCB render](images/cartridge.jpg)
+![Casing home print (front)](images/casing-homeprint-front.jpg)
+
 
 
 ## Introduction
@@ -94,8 +95,21 @@ This topic is described in the [flasher](flasher) directory.
 
 ## Casing
 
-... todo ...
+One of the last steps is to create a casing.
+I wanted it to look as close as possible to the originals.
+However, the flash chip in its socket is too high to fit in the original case.
+So my case is 1.5mm thicker.
+And I have a hole for the dipswitch.
 
+![Casing render](images/casing-render.png).
+
+I did a 3D print myself.
+
+![Casing home print (front)](images/casing-homeprint-front.jpg)
+
+![Casing home print (back)](images/casing-homeprint-back.jpg)
+
+Find the stl files in the [case](case) sub directory.
 
 ## Cost 
 
