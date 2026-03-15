@@ -69,7 +69,7 @@ I decided to make 2.
   | ZIF socket        |         2 |    €2.20 | [🔗](https://nl.aliexpress.com/item/1005006117085994.html)  |
   | Arduino Nano      | 1+      2 |    €6.08 | [🔗](https://nl.aliexpress.com/item/1005007392605300.html)  |
   | PLCC extractor    |         1 |    €1.89 | [🔗](https://nl.aliexpress.com/item/1005007532973884.html)  |
-  | SN74HC595         | stock 2×2 |    €0.00 |                                                             |
+  | SN74HC595         | stock 2×2 |        ? |                                                             |
   | Shipping          |         1 |    €0.00 |                                                             |
   | **Total**         |           |**€10.17**|                                                             |
 
