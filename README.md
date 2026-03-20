@@ -51,13 +51,20 @@ Likely cartridge images are:
 
 - A self-made table of contents.
 - [BASIC NL 1.1](https://github.com/p2000t/software/blob/main/cartridges/BASICNL1.1.bin) because I only have an UK 1.0 cartridge.
-- [Forth](https://github.com/p2000t/software/blob/main/cartridges/Forth.bin)
+  The [User manual](https://github.com/p2000t/documentation/blob/main/programming/Gebruiksaanwijzing%20P2000T%20met%20P2305%20Basic%20NL.pdf) is available.
+- [Forth](https://github.com/p2000t/software/blob/main/cartridges/Forth.bin).
+  The [User manual](https://github.com/p2000t/documentation/blob/main/programming/Forth30.pdf) or maybe
+  the [older version](https://github.com/p2000t/documentation/blob/main/programming/Forth12.pdf).
 - [UCSD Pascal](https://github.com/p2000t/software/blob/main/cartridges/UCSD%20Pascal.bin)
 - [Assembler](https://github.com/p2000t/software/blob/main/cartridges/assembler%205.9.bin)
 - [JWS Disk BASIC](https://github.com/p2000t/software/blob/main/cartridges/JWSBasic.bin) because we found a P2000 with built-in JWS drive.
   It seems this was developed by Jan-Willem Sparnaaij to enable floppy disks instead of the cassette recorder in BASIC.
+  The [User manual](https://github.com/p2000t/documentation/blob/main/software/JWS.pdf).
 - [ECOL](https://github.com/p2000t/software/blob/main/cartridges/ECOL3.0.bin), the Educative COmputer Language.
+  This seems to be a sort of "Dutch keyword" BASIC.
 - [Maintenance 2](https://github.com/p2000t/software/blob/main/cartridges/Maintenance%202.bin), a test cartridge.
+  See the Cartridge User Manual in the [Field Support Manual](https://github.com/p2000t/documentation/blob/main/hardware/FieldSupportManual-2.pdf) page 7.1 (72).
+  Maybe also the [Maintenance manual](https://github.com/p2000t/documentation/blob/main/hardware/Maintenance.pdf)
 
 List of candidate cartridges can be found on the 
 [P2000T Preservation Project](https://github.com/p2000t/software/tree/main/cartridges).
