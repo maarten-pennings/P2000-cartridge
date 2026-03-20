@@ -4,7 +4,8 @@
 
 
 // Application version (and its history)
-#define AFP_VERSION "1.0a" // see also AFP_DATE
+#define AFP_VERSION "1.0b" // see also AFP_DATE
+// 20260305  1.0b  Fixed rom number in "read"
 // 20260305  1.0a  Fixed some help texts
 // 20260221  1.0   Removed all println: all lines now end in \n (io \r\n)
 // 20260221  0.9   Fixed help 'flash' command
@@ -19,7 +20,7 @@
 
 
 // Application date
-#define AFP_DATE      "2026 mar 5"
+#define AFP_DATE      "2026 mar 20"
 
 
 // Application long name

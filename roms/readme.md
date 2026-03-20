@@ -144,6 +144,15 @@ The Python [`burn`](burn.py) script does just that. It sends `.afp` files to the
 each time waiting for the prompt.
 
 
+### Overview
+
+
+The figure below shows an overview of the tools (Python scripts, 
+shell script, makefile) in the process flow:
+
+![Flow overview](../images/flow.drawio.png)
+
+
 ## Makefile
 
 There is a [Makefile](Makefile) that compiles the [assembly source](src/contents.asm) to an

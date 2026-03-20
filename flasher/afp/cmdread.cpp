@@ -23,7 +23,7 @@ static void cmdread_show(uint32_t num) {
   bool next=0;
   while( num>0 ) {
     uint32_t sector_addr= cmdread_addr / cmdflash_sectorsize();
-    uint32_t rom_addr = sector_addr  / cmdflash_romsize();
+    uint32_t rom_addr = cmdread_addr  / cmdflash_romsize();
 
     if( cmdread_verbose ) {
       // print divider
