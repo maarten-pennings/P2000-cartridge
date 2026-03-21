@@ -32,7 +32,7 @@ Pressing any button will toggle the screens.
 
 ## Implementation
 
-For the source file, see the [src directory](src/contents.asm).
+For the source file of the Contents ROM, see the [myroms directory](myroms/contents.asm).
 
 Notes
 
@@ -57,7 +57,7 @@ Notes
 - Next comes the main `loop`.
   It configures the video chip to show the first screen, and after a key-press the second.
   After another key-press back to the first screen.
-  Note that the screen switching is done with `OUT (48),0` (respectively `OUT (48),40`). 
+  Note that the screen switching is done with `OUT (48),0` respectively `OUT (48),40`. 
   
 - Following the main loop are some rudimentary keyboard scan routines.
   
@@ -97,7 +97,7 @@ included in the checksum.
 > we have chosen can be erased per sector of 4 k bytes. One P2000 ROM exactly matches 4 sectors.
 > Furthermore, our [flasher](../flasher) supports erasing individual sectors and it supports
 > writing individual sectors (bytes actually).
-> As a result, when using our proprietary flasher, there is no need to use `pad`.
+> As a result, when using our proprietary flasher, there is no need to use `pad`, and we don't.
 
 
 ### AFP
@@ -107,15 +107,15 @@ AFP is a tool made from an Arduino sketch and a Nano; this tool burns flash memo
 AFP has a user interface via the virtual COM port (over USB).
 This interface is textual, there is a `read` command, an `erase` command and a `write` command.
 
-The Python [`afp`](afp.py) script converts a `.bin` file to a `.afp` file, a text file with 
+The Python [`afp`](afp.py) script converts a `.bin` file to an `.afp` file, a text file with 
 commands for the AFP tool. The generated `.afp` file contains one `erase` command for the area 
 the binary is mapped to, and one `write` command with (up to) 16 k bytes of data for that area.
 
-The `.afp` file can be sent via the virtual COM port in the AFP tool.
+The `.afp` file can be sent via the virtual COM port to the AFP tool.
 
 Here is the shortened `contents.afp` file; `R0` denotes an address, the `R` stands for
-"ROM" and means that the "units" is 4 k pages. The actual address is 0×4k=0x00000.
-For erase is also implies a size of 16 k.
+"ROM" and means that the "units" is 16 k bytes. The actual address is 0×16k=0x00000.
+For erase, it also implies a size of 16 k, that is, 4 sectors.
 
 ```
 erase R0
@@ -144,36 +144,38 @@ The Python [`burn`](burn.py) script does just that. It sends `.afp` files to the
 each time waiting for the prompt.
 
 
-### Overview
+## Makefile
 
+There is a [Makefile](Makefile) that compiles the [assembly source](myroms/contents.asm) to an
+unpatched bin file (`.ubin`). Next the Python `patch` script is run. It patches the 
+checksum and generates a `.bin` file. You can run this in the [emulator](https://github.com/p2000t/M2000).
+
+The makefile also generates the `.afp` files that can be sent to the [Arduino Flash Programmer](../flasher). 
+The makefile not only converts the `contents.bin` to `.afp`, but also seven [stock roms](stockroms).
+
+I develop on Windows, but use WSL to install the Z80 assembler.
+This repo also has a workflow to do this every Git push, see the 
+[workflow](../.github/workflows/build_contents.yml).
+
+On the [GitHub actions dashboard](https://github.com/maarten-pennings/P2000-cartridge/actions) you see every run. 
+Click one, and on the next screen at the bottom, download the build results called "roms.zip".
+
+![GitHub actions dashboard](../images/github-actions.png)
+
+It contains the compiled contents (.bin). It also contains the .afp files of all rom; from contents.bin,
+but also from all stock roms.
+
+
+## Burning
+
+The shell script `burn.cmd` runs the `burn.py` on all 8 `.afp` files, effectively creating 
+a multi ROM containing 8 cartridges.
 
 The figure below shows an overview of the tools (Python scripts, 
 shell script, makefile) in the process flow:
 
 ![Flow overview](../images/flow.drawio.png)
 
-
-## Makefile
-
-There is a [Makefile](Makefile) that compiles the [assembly source](src/contents.asm) to an
-unpatched bin file (`.ubin`). Next the Python `patch` script is run. It patches the 
-checksum and generates a `.bin` file. You can run this in the [emulator](https://github.com/p2000t/M2000).
-
-The makefile also generates the `.afp` files that can be sent to the 
-[Arduino Flash programmer](../flasher). Not only for the `contents.bin`, but also
-for the other seven [stock roms](stockroms).
-
-I develop on Windows, but use WSL to install the Z80 assembler.
-This repo also has a workflow to do this every Git push, see the 
-[workflow](../.github/workflows/build_contents.yml).
-
-On the [GitHub actions dashboard](https://github.com/maarten-pennings/P2000-cartridge/actions) 
-you see every run. Click one, and on the next screen at the bottom, download the build results called "roms.zip".
-
-![GitHub actions dashboard](../images/github-actions.png)
-
-It contains the compiled contents (.bin). It also contains the .afp files of all rom; from contents.bin,
-but also from all stock roms.
 
 (end)
 
