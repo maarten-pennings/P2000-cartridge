@@ -1,11 +1,12 @@
 # P2000-cartridge - Cost
 
 This file documents the cost made for a Philips P2000T cartridge.
+Also listed is the cost for making a flash tool ("AFP" or Android Flash Programmer).
 
 
 ## Cartridge 
 
-Needed to purchase components and the PCB.
+Needed to purchase components, the PCB and casing.
 
 
 ### Cartridge components
@@ -54,13 +55,35 @@ I ordered 10 [PCBs](pcb).
   | **Total**          |          |**€16.70**| [🔗](images/invoice-jlcpcb.png) |
 
 
+### Cartridge case
+
+I ordered 2 casings (top and bottom white and top and bottom black) with slow shipping.
+
+![Casing](images/casing-render.png)
+
+  | Description        | Quantity |      Sub |     Cost | Link                            |
+  |:-------------------|---------:|---------:|---------:|:--------------------------------|
+  | Top black          |        1 |   €3.38  |          |                                 |
+  | Bottom black       |        1 |   €4.14  |          |                                 |
+  | **Complete Black** |        1 |          |   €7.52  |
+  | Top white          |        1 |   €1.82  |          |                                 |
+  | Bottom white       |        1 |   €2.22  |          |                                 |
+  | **Complete White** |        1 |          |   €4.04  |
+  | Shipping           |        1 |          |   €8.78  |                                 |
+  | Import Taxes (21%) |        1 |          |   €4.27  |                                 |
+  | **Total**          |          |          |**€24.61**| [🔗](images/invoice3Dprint.png) |
+
+
+
 ## Android Flash Programmer
 
-Needed to purchase components and the PCB.
+Instead of buying a flash programmer, I made one myself.
+I needed to purchase components and the PCB.
+
 
 ### AFP components
 
-I later made the Android Flash Programmer PCB, so that I could program the SST39SF010A memories.
+The Android Flash Programmer PCB can program the SST39SF010A memories.
 I decided to make 2.
 
   | Description       | Quantity  |     Cost | Link                                                        |
@@ -88,29 +111,9 @@ I ordered 5 PCBs (minimum order quantity) with slow shipping.
   | **Total**          |          | **€3.59**| [🔗](flasher/pcb/order.png)     |
 
 
-## Casing 
-
-
-
-I ordered 2 casings (top and bottom white and top and bottom black) with slow shipping.
-
-![Casing](images/casing-render.png)
-
-  | Description        | Quantity |      Sub |     Cost | Link                            |
-  |:-------------------|---------:|---------:|---------:|:--------------------------------|
-  | Top black          |        1 |   €3.38  |          |                                 |
-  | Bottom black       |        1 |   €4.14  |          |                                 |
-  | **Complete Black** |        1 |          |   €7.52  |
-  | Top white          |        1 |   €1.82  |          |                                 |
-  | Bottom white       |        1 |   €2.22  |          |                                 |
-  | **Complete White** |        1 |          |   €4.04  |
-  | Shipping           |        1 |          |   €8.78  |                                 |
-  | Import Taxes (21%) |        1 |          |   €4.27  |                                 |
-  | **Total**          |          |          |**€24.61**| [🔗](images/invoice3Dprint.png) |
-
-
-
 ## Total 
+
+The total cost of the project, i.e. a summary of the tables above.
 
   | Description          | Quantity |       Cost |
   |:---------------------|---------:|-----------:|
