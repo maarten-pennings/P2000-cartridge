@@ -333,6 +333,18 @@ There are several tools in the flow:
 ![Flow overview](../images/flow.drawio.png)
 
 
+## Test rig
+
+One out of the 10 cartridges I made is not working.
+It is cartridge nr 9; when I plug it into a P2000 it is not recognized (as in the checksum fails).
+I swapped the 39SF010 ROM with another cartridge, but nr 9 keeps failing.
+
+I bought an edge connector, hooked it up to an Arduino.
+Basically I made a test rig, similar to the AFP board design.
+I read the ROM, but this proved ok.
+I'm puzzled why it is not working.
+
+![Test rig](images/testrig.jpg)
 
 (end)
 
