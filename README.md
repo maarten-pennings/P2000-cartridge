@@ -2,7 +2,7 @@
 
 Making a cartridge for the Philips P2000T.
 
-![Casing home print (front)](images/casing-homeprint-front.jpg)
+![Cartrdiges](images/cartridges1.jpg)
 
 
 
@@ -117,6 +117,16 @@ I did a 3D print myself.
 ![Casing home print (back)](images/casing-homeprint-back.jpg)
 
 Find the stl files in the [case](case) sub directory.
+
+I also did a 3D print via JLCPCB in white and black.
+
+![Cartridges SLA)](images/cartridges1.jpg)
+
+![Cartridges SLA)](images/cartridges2.jpg)
+
+![Cartridges SLA)](images/cartridges3.jpg)
+
+![Cartridges SLA)](images/cartridges4.jpg)
 
 ## Cost 
 
