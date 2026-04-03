@@ -1,7 +1,7 @@
 # P2000-cartridge - Cost
 
 This file documents the cost made for a Philips P2000T cartridge.
-Also listed is the cost for making a flash tool ("AFP" or Android Flash Programmer).
+Also listed is the cost for making a flash tool ("AFP" or Arduino Flash Programmer).
 
 
 ## Cartridge 
@@ -75,7 +75,7 @@ I ordered 2 casings (top and bottom white and top and bottom black) with slow sh
 
 
 
-## Android Flash Programmer
+## Arduino Flash Programmer
 
 Instead of buying a flash programmer, I made one myself.
 I needed to purchase components and the PCB.
@@ -83,7 +83,7 @@ I needed to purchase components and the PCB.
 
 ### AFP components
 
-The Android Flash Programmer PCB can program the SST39SF010A memories.
+The Arduino Flash Programmer PCB can program the SST39SF010A memories.
 I decided to make 2.
 
   | Description       | Quantity  |     Cost | Link                                                        |
