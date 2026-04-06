@@ -49,22 +49,30 @@ The chosen flash chip 39SF010 has room for 8.
 
 Likely cartridge images are:
 
-- A self-made table of contents.
-- [BASIC NL 1.1](https://github.com/p2000t/software/blob/main/cartridges/BASICNL1.1.bin) because I only have an UK 1.0 cartridge.
+- (0) A self-made table of [Contents](roms/myroms).  
+  You can press any key to get some references.
+- (1) [BASIC NL 1.1](https://github.com/p2000t/software/blob/main/cartridges/BASICNL1.1.bin).  
   The [User manual](https://github.com/p2000t/documentation/blob/main/programming/Gebruiksaanwijzing%20P2000T%20met%20P2305%20Basic%20NL.pdf) is available.
-- [Forth](https://github.com/p2000t/software/blob/main/cartridges/Forth.bin).
+- (2) [Forth](https://github.com/p2000t/software/blob/main/cartridges/Forth.bin).  
   The [User manual](https://github.com/p2000t/documentation/blob/main/programming/Forth30.pdf) or maybe
   the [older version](https://github.com/p2000t/documentation/blob/main/programming/Forth12.pdf).
-- [UCSD Pascal](https://github.com/p2000t/software/blob/main/cartridges/UCSD%20Pascal.bin)
-- [Assembler](https://github.com/p2000t/software/blob/main/cartridges/assembler%205.9.bin)
-- [JWS Disk BASIC](https://github.com/p2000t/software/blob/main/cartridges/JWSBasic.bin) because we found a P2000 with built-in JWS drive.
+- (3) [UCSD Pascal](https://github.com/p2000t/software/blob/main/cartridges/UCSD%20Pascal.bin).  
+  No documentation. Needs floppy?.
+- (4) [Assembler](https://github.com/p2000t/software/blob/main/cartridges/assembler%205.9.bin).  
+  No documentation.
+- (5) [JWS Disk BASIC](https://github.com/p2000t/software/blob/main/cartridges/JWSBasic.bin).  
+  For a P2000 with built-in JWS drive.
   It seems this was developed by Jan-Willem Sparnaaij to enable floppy disks instead of the cassette recorder in BASIC.
+  Lot of [tape (?) software](https://github.com/p2000t/software/tree/main/cassettes/JWS).
   The [User manual](https://github.com/p2000t/documentation/blob/main/software/JWS.pdf).
-- [ECOL](https://github.com/p2000t/software/blob/main/cartridges/ECOL3.0.bin), the Educative COmputer Language.
-  This seems to be a sort of "Dutch keyword" BASIC.
-- [Maintenance 2](https://github.com/p2000t/software/blob/main/cartridges/Maintenance%202.bin), a test cartridge.
-  See the Cartridge User Manual in the [Field Support Manual](https://github.com/p2000t/documentation/blob/main/hardware/FieldSupportManual-2.pdf) page 7.1 (72).
-  Maybe also the [Maintenance manual](https://github.com/p2000t/documentation/blob/main/hardware/Maintenance.pdf)
+- (6) [ECOL](https://github.com/p2000t/software/blob/main/cartridges/ECOL3.0.bin).  
+  The Educational COmputer Language, tagged `FTU/OC ECOL 3.0`.
+  This seems to be a sort of simplified Dutch Pascal (?). The only two commands that do
+  something are `datum` (irrespective of casing) and `edit`. The `:-` key on the numeric board toggles capslock.
+  I wonder if it needs to be accompanied by a tape with an editor, because `edit` complains `Verkeerde band`.
+- (7) [Maintenance 2](https://github.com/p2000t/software/blob/main/cartridges/Maintenance%202.bin).  
+  A test cartridge. See the Cartridge User Manual in the [Field Support Manual](https://github.com/p2000t/documentation/blob/main/hardware/FieldSupportManual-2.pdf) page 7.1 (72).
+  Maybe also the [Maintenance manual](https://github.com/p2000t/documentation/blob/main/hardware/Maintenance.pdf).
 
 List of candidate cartridges can be found on the 
 [P2000T Preservation Project](https://github.com/p2000t/software/tree/main/cartridges).
@@ -74,9 +82,10 @@ The ones listed here are ["backed up"](roms/stockroms) in this repo.
 
 ### Own cartridge: Contents
 
-The proposal is that the first ROM is a sort of table of contents.
+The proposal is that the first ROM is a table of contents.
 I made the [Contents](roms/myroms) ROM myself. 
 It is written in assembler, but rather simple: just an LDIR to copy a screen image to the frame buffer.
+Press any key to get some references (URLs).
 
 ![Screenshot Collection](images/collection.png)
 
@@ -110,7 +119,7 @@ And I have a hole for the dipswitch.
 
 ![Casing render](images/casing-render.png).
 
-I did a 3D print myself.
+I did a 3D print myself. Here mine (left) compared to an original (right).
 
 ![Casing home print (front)](images/casing-homeprint-front.jpg)
 
@@ -119,6 +128,7 @@ I did a 3D print myself.
 Find the stl files in the [case](case) sub directory.
 
 I also did a 3D print via JLCPCB in white and black.
+Those are more detailed with no "support-artifacts".
 
 ![Cartridges SLA)](images/cartridges1.jpg)
 
