@@ -127,6 +127,10 @@ I did a 3D print myself. Here mine (left) compared to an original (right).
 
 Find the stl files in the [case](case) sub directory.
 
+The directory also contains labels: [black](case/label-ErixCollectables-black.png) 
+and [white](label-ErixCollectables-white.png) and [sheet](label-ErixCollectables-print.docx).
+
+
 I also did a 3D print via JLCPCB in white and black.
 Those are more detailed with no "support-artifacts".
 
